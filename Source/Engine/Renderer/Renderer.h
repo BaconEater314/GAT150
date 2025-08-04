@@ -24,6 +24,9 @@ namespace bacon {
         int GetWidth() const { return m_width; }
         int GetHeight() const { return m_height; }
 
+        friend class Texture;
+        void DrawTexture(class Texture* texture, float x, float y, float angle = 0.0f);
+
     private:
         friend class Text; 
         SDL_Window* m_window{ nullptr };

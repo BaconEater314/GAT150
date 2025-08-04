@@ -14,6 +14,7 @@
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
 #include "Core/File.h"
+#include "SDL3_image/SDL_image.h"
 
 #include "Game/Player.h"
 

@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Texture.h"
 
 namespace bacon {
     bool Renderer::Initialize() {
@@ -65,5 +66,17 @@ namespace bacon {
 
     void Renderer::Present() {
         SDL_RenderPresent(m_renderer);
+    }
+
+    void Renderer::DrawTexture(Texture* texture, float x, float y, float angle){
+        vec2 size = texture->GetSize();
+
+        SDL_FRect destRect;
+        destRect.x = x;
+        destRect.y = y;
+        destRect.w = destRect.x;
+        destRect.h = ...size y...;
+
+        SDL_RenderTexture(m_renderer, texture->m_texture, NULL, &destRect);
     }
 }
