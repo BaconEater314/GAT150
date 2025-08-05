@@ -1,10 +1,13 @@
 #pragma once
 #include "Renderer.h"
+#include "Resources/Resource.h"
+
+#include <string>
 
 struct TTF_Font;
 
 namespace bacon {
-	class Font {
+	class Font : public Resource{
 	public:
 		Font() = default;
 		~Font();

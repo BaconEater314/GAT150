@@ -1,5 +1,6 @@
 #include "Texture.h"
-
+#include "Renderer/Renderer.h"
+#include "Math/Vector2.h"
 
 #include <iostream>
 
@@ -19,7 +20,7 @@ namespace Bacon {
         }
 
         // create texture from surface, texture is a friend class of renderer
-        m_texture = SDL_CreateTextureFromSurface();
+        m_texture = SDL_CreateTextureFromSurface(renderer, surface);
         // once texture is created, surface can be freed up
         SDL_DestroySurface(surface);
         if (!surface) {
@@ -30,10 +31,9 @@ namespace Bacon {
         return true;
     }
 
-    Vector2 Texture::GetSize() {
-        // https://wiki.libsdl.org/SDL3/SDL_GetTextureSize
-        float w = m_texture->w;
-        float h = m_texture->h;
+    vec2 Texture::GetSize() {
+        float w, h;
+        SDL_GetTextureSize(m_texture, &w, &h);
 
         return vec2{ w,h };
     }

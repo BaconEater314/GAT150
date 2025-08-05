@@ -14,6 +14,7 @@
 #include "GameEngine/Actor.h"
 #include "Renderer/ParticleSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Resources/ResourceManager.h"
 
 #include <vector>
 
@@ -22,15 +23,9 @@ using namespace bacon;
 bool SpaceGame::Initialize() {
     m_scene = std::make_unique<bacon::Scene>(this);
 
-    m_titleFont = std::make_shared<Font>();
-    m_titleFont->Load("Surprise Valentine.ttf",128);
-
-    m_uiFont = std::make_shared<Font>();
-    m_uiFont->Load("Surprise Valentine.ttf", 48);
-
-    m_titleText = std::make_unique<Text>(m_titleFont);
-    m_scoreText = std::make_unique<Text>(m_uiFont);
-    m_livesText = std::make_unique<Text>(m_uiFont);
+    m_scoreText = std::make_unique<Text>(ResourceManager::Instance().Get<Font>("Surprise Valentine.ttf"), 48.0f);
+    m_titleText = std::make_unique<Text>(ResourceManager::Instance().Get<Font>("Surprise Valentine.ttf"), 128.0f);
+    m_livesText = std::make_unique<Text>(ResourceManager::Instance().Get<Font>("Surprise Valentine.ttf"), 48.0f);
 
     return true;
 }

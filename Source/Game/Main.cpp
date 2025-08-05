@@ -15,6 +15,7 @@
 #include "Renderer/Text.h"
 #include "Core/File.h"
 #include "SDL3_image/SDL_image.h"
+#include "Resources/ResourceManager.h"
 
 #include "Game/Player.h"
 
@@ -28,8 +29,6 @@ int main(int argc, char* argv[]) {
 
     //initialize Engine
     GetEngine().Initialize();
-
-    //initialize scene
     
     //initialize game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
@@ -67,6 +66,7 @@ int main(int argc, char* argv[]) {
     GetEngine().GetAudio().AddSound("Assets/Sounds/laser.wav", "laser");
     GetEngine().GetAudio().AddSound("Assets/Sounds/game_music.wav", "music");
     
+    auto texture = ResourceManager::Instance().Get<Texture>("krill.png", GetEngine().GetRenderer());
 
     // Main loop
     // This is where all the code that runs the code goes.
