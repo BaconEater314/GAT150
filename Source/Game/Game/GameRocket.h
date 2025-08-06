@@ -4,8 +4,8 @@
 class Rocket : public bacon::Actor {
 public:
 	Rocket() = default;
-	Rocket(const bacon::Transform& transform, std::shared_ptr<bacon::Model> model) :
-		Actor{ transform, model }
+	Rocket(const bacon::Transform& transform, bacon::res_t<bacon::Texture> texture) :
+		Actor{ transform, texture }
 	{}
 
 	void Update(float dt) override;

@@ -27,6 +27,8 @@ using namespace bacon;
 
 int main(int argc, char* argv[]) {
 
+    file::SetCurrentDirectory("Assets");
+
     //initialize Engine
     GetEngine().Initialize();
     
@@ -52,21 +54,21 @@ int main(int argc, char* argv[]) {
     SDL_FRect greenSquare{ 270, 190, 200, 200 };
 
     // sound work
-    GetEngine().GetAudio().AddSound("Assets/drums/bass.wav", "bass");
-    GetEngine().GetAudio().AddSound("Assets/drums/snare.wav", "snare");
-    GetEngine().GetAudio().AddSound("Assets/drums/clap.wav", "clap");
-    GetEngine().GetAudio().AddSound("Assets/drums/cowbell.wav", "cowbell");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/pipe.wav", "pipe");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/fart.wav", "fart");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/yippee.wav", "yippee");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/impact2.wav", "impact");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/pew.wav", "pew");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/impact.wav", "other_impact");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/game_over.wav", "game_over");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/laser.wav", "laser");
-    GetEngine().GetAudio().AddSound("Assets/Sounds/game_music.wav", "music");
+    GetEngine().GetAudio().AddSound("drums/bass.wav", "bass");
+    GetEngine().GetAudio().AddSound("drums/snare.wav", "snare");
+    GetEngine().GetAudio().AddSound("drums/clap.wav", "clap");
+    GetEngine().GetAudio().AddSound("drums/cowbell.wav", "cowbell");
+    GetEngine().GetAudio().AddSound("Sounds/pipe.wav", "pipe");
+    GetEngine().GetAudio().AddSound("Sounds/fart.wav", "fart");
+    GetEngine().GetAudio().AddSound("Sounds/yippee.wav", "yippee");
+    GetEngine().GetAudio().AddSound("Sounds/impact2.wav", "impact");
+    GetEngine().GetAudio().AddSound("Sounds/pew.wav", "pew");
+    GetEngine().GetAudio().AddSound("Sounds/impact.wav", "other_impact");
+    GetEngine().GetAudio().AddSound("Sounds/game_over.wav", "game_over");
+    GetEngine().GetAudio().AddSound("Sounds/laser.wav", "laser");
+    GetEngine().GetAudio().AddSound("Sounds/game_music.wav", "music");
     
-    auto texture = ResourceManager::Instance().Get<Texture>("krill.png", GetEngine().GetRenderer());
+    auto texture = ResourceManager::Instance().Get<Texture>("Images/krill.png", GetEngine().GetRenderer());
 
     // Main loop
     // This is where all the code that runs the code goes.
@@ -87,16 +89,7 @@ int main(int argc, char* argv[]) {
         GetEngine().GetRenderer().Clear();
 
         game->Draw(GetEngine().GetRenderer());
-
-        // movement and rotation code
-        //float playerSpeed = 200;
-
-        //vec2 direction{ 0,0 };
-        
-
-        //drawing shapes
-        
-        //text->Draw(GetEngine().GetRenderer(), 40.0f, 40.0f);
+        //GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30, 90, 4);
 
 
         //quits the program when pressing escape.

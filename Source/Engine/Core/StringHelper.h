@@ -2,7 +2,7 @@
 #include <string>
 
 namespace bacon {
-	inline std::string ToLower(std::string& str) {
+	inline std::string ToLower(const std::string& str) {
 		std::string result = str;
 
 		for (char& c : result) {
@@ -11,7 +11,7 @@ namespace bacon {
 		return result;
 	}
 
-	inline std::string ToUpper(std::string& str) {
+	inline std::string ToUpper(const std::string& str) {
 		std::string result = str;
 
 		for (char& c : result) {

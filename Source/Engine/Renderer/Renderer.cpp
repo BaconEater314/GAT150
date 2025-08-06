@@ -68,15 +68,26 @@ namespace bacon {
         SDL_RenderPresent(m_renderer);
     }
 
-    void Renderer::DrawTexture(Texture* texture, float x, float y, float angle){
+    void Renderer::DrawTexture(Texture* texture, float x, float y){
         vec2 size = texture->GetSize();
 
         SDL_FRect destRect;
         destRect.x = x;
         destRect.y = y;
         destRect.w = destRect.x;
-        destRect.h = ...size y...;
+        destRect.h = destRect.y;
 
         SDL_RenderTexture(m_renderer, texture->m_texture, NULL, &destRect);
+    }
+    void Renderer::DrawTexture(Texture* texture, float x, float y, float angle, float scale){
+        vec2 size = texture->GetSize();
+
+        SDL_FRect destRect;
+        destRect.w = size.x * scale;
+        destRect.h = size.y * scale;
+        destRect.x = x - (destRect.w / 2);
+        destRect.y = y - (destRect.h / 2);
+
+        SDL_RenderTextureRotated(m_renderer, texture->m_texture, NULL, &destRect, angle, NULL, SDL_FLIP_NONE);
     }
 }

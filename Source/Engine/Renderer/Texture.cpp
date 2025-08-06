@@ -2,9 +2,10 @@
 #include "Renderer/Renderer.h"
 #include "Math/Vector2.h"
 
+#include <SDL3_image/SDL_image.h>
 #include <iostream>
 
-namespace Bacon {
+namespace bacon {
 
     Texture::~Texture() {
         // if texture exists, destroy texture
@@ -20,7 +21,7 @@ namespace Bacon {
         }
 
         // create texture from surface, texture is a friend class of renderer
-        m_texture = SDL_CreateTextureFromSurface(renderer, surface);
+        m_texture = SDL_CreateTextureFromSurface(renderer.m_renderer, surface);
         // once texture is created, surface can be freed up
         SDL_DestroySurface(surface);
         if (!surface) {

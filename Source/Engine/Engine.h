@@ -1,5 +1,11 @@
 #pragma once
 #include "Core/Time.h"
+#include "Core/Singleton.h"
+#include "Renderer/Renderer.h"
+#include "Audio/AudioSystem.h"
+#include "Input/InputSystem.h"
+#include "Renderer/ParticleSystem.h"
+#include "Resources/ResourceManager.h"
 
 #include <memory>
 
@@ -9,9 +15,8 @@ namespace bacon {
 	class InputSystem;
 	class ParticleSystem;
 
-	class Engine {
+	class Engine : public Singleton<Engine>{
 	public:
-		Engine() = default;
 
 		bool Initialize();
 		void Kill();
@@ -25,6 +30,9 @@ namespace bacon {
 		Time& GetTime() { return m_time; }
 
 	private:
+		friend class Singleton;
+		Engine() = default;
+
 		Time m_time;
 
 		std::unique_ptr<Renderer> m_renderer;
@@ -36,5 +44,5 @@ namespace bacon {
 		std::unique_ptr<ParticleSystem> m_particleSystem;
 	};
 
-	Engine& GetEngine();
+	inline Engine& GetEngine() { return Engine::Instance(); }
 }

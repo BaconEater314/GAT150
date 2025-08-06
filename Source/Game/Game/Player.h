@@ -4,8 +4,8 @@
 class Player : public bacon::Actor {
 public:
 	Player() = default;
-	Player(const bacon::Transform& transform, std::shared_ptr<bacon::Model> model) :
-		Actor{ transform, model }
+	Player(const bacon::Transform& transform, bacon::res_t<bacon::Texture> texture) :
+		Actor{ transform, texture }
 	{ }
 
 	void Update(float dt) override;

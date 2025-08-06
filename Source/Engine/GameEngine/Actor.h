@@ -1,6 +1,7 @@
 #pragma once
 #include "Math/Transform.h"
 #include "Renderer/Model.h"
+#include "Renderer/Texture.h"
 
 #include <memory>
 #include <string>
@@ -24,9 +25,9 @@ namespace bacon {
 
 	public:
 		Actor() = default;
-		Actor(Transform transform, std::shared_ptr<class Model> model) :
+		Actor(Transform transform, res_t<Texture> texture) :
 			transform { transform },
-			m_model { model }
+			m_texture { texture }
 		{ }
 
 		virtual void Update(float dt);
@@ -37,7 +38,8 @@ namespace bacon {
 		float GetRadius();
 
 	protected:
-		std::shared_ptr<Model> m_model;
+		
+		res_t<Texture> m_texture;
 
 	private:
 	};

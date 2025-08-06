@@ -6,11 +6,6 @@
 
 namespace bacon {
 
-	Engine& GetEngine(){
-		static Engine engine;
-		return engine;
-	}
-
 	bool Engine::Initialize() {
 
 		m_renderer = std::make_unique<bacon::Renderer>();

@@ -23,9 +23,9 @@ using namespace bacon;
 bool SpaceGame::Initialize() {
     m_scene = std::make_unique<bacon::Scene>(this);
 
-    m_scoreText = std::make_unique<Text>(ResourceManager::Instance().Get<Font>("Surprise Valentine.ttf"), 48.0f);
-    m_titleText = std::make_unique<Text>(ResourceManager::Instance().Get<Font>("Surprise Valentine.ttf"), 128.0f);
-    m_livesText = std::make_unique<Text>(ResourceManager::Instance().Get<Font>("Surprise Valentine.ttf"), 48.0f);
+    m_titleText = std::make_unique<Text>(Resources().GetWithID<Font>("title_font", "Surprise Valentine.ttf", 128.0f));
+    m_scoreText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Surprise Valentine.ttf", 48.0f));
+    m_livesText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Surprise Valentine.ttf", 48.0f));
 
     return true;
 }
@@ -57,9 +57,8 @@ void SpaceGame::Update(float dt){
             SpawnDreadnought();
         }
         //create player
-        std::shared_ptr<Model> model = std::make_shared<Model>(GameData::shipPoints, vec3{ 1,0,0 });
         Transform transform{ vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,10 };
-        auto player = std::make_unique<Player>(transform, model);
+        auto player = std::make_unique<Player>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
         player->speed = 750.0f;
         player->rotationRate = 180.0f;
         player->damping = 1.5f;
@@ -94,7 +93,7 @@ void SpaceGame::Update(float dt){
 
         if (m_songTimer == 0) {
             //GetEngine().GetAudio().PlaySound("music");
-            m_songTimer == 146;
+            m_songTimer = 146;
         } else {
             m_songTimer -= 1;
         }
@@ -164,14 +163,11 @@ void SpaceGame::SpawnEnemy(){
     Player* player = m_scene->GetActorByName<Player>("player");
     if (player) {
 
-        //create enemies
-        std::shared_ptr<Model> enemyModel = std::make_shared<Model>(GameData::enemyPoints, vec3{ 1,1,0 });
-
         vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(500.0f, 1000.0f);
-        Transform transform{ position, random::getReal(0.0f,360.0f), 10};
+        Transform transform{ position, random::getReal(0.0f,360.0f), 2.0f};
 
-        
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
+        //creating an enemy
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
         enemy->damping = 1.5f;
         enemy->fireRate = 3;
         enemy->fireTimer = 5;
@@ -188,14 +184,11 @@ void SpaceGame::SpawnDreadnought() {
 
         dreadFire = true;
 
-        //create enemies
-        std::shared_ptr<Model> dreadModel = std::make_shared<Model>(GameData::dreadnoughtPoints, vec3{ 1,0,0 });
-
         vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(2000.0f, 2500.0f);
         Transform transform{ position, 0, 10 };
 
-
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, dreadModel);
+        //creating a Dreadnought
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
         enemy->damping = 1.5f;
         enemy->fireRate = 0.25;
         enemy->fireTimer = 3;

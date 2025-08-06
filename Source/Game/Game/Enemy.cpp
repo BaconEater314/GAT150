@@ -46,9 +46,8 @@ void Enemy::Update(float dt){
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireRate;
 
-        std::shared_ptr<Model> model = std::make_shared<Model>(GameData::rocketPoints, vec3{ 1,1,1 });
         Transform transform{ this->transform.position, this->transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, model);
+        auto rocket = std::make_unique<Rocket>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
         rocket->speed = 1500.0f;
         rocket->lifespan = 1.5f;
         rocket->name = "rocket";

@@ -1,5 +1,5 @@
 #include "Actor.h"
-#include "../Renderer/Model.h"
+#include "Renderer/Renderer.h"
 
 namespace bacon{
 	void Actor::Update(float dt) {
@@ -17,10 +17,10 @@ namespace bacon{
 	void Actor::Draw(Renderer& renderer) {
 		if (dead) return;
 
-		m_model->Draw(renderer, transform);
+		renderer.DrawTexture(m_texture.get(), transform.position.x, transform.position.y, transform.rotation, transform.scale);
 	}
 
 	float Actor::GetRadius() {
-		return(m_model) ? m_model->GetRadius() * transform.scale * 0.75f : 0;
+		return(m_texture) ? (m_texture->GetSize().Length()) * transform.scale * 0.75f : 0;
 	}
 }
