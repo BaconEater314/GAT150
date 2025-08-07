@@ -2,6 +2,7 @@
 #include "Core/StringHelper.h"
 #include "Resource.h"
 #include "Core/Singleton.h"
+#include "Core/Logger.h"
 
 #include <string>
 #include <map>

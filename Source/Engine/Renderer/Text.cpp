@@ -15,7 +15,7 @@ namespace bacon {
 		SDL_Color c{ (uint8_t)(color.r * 255), (uint8_t)(color.g * 255), (uint8_t)(color.b * 255), 255 };
 		SDL_Surface* surface = TTF_RenderText_Solid(m_font->m_ttfFont, text.c_str(), text.size(), c);
 		if (surface == nullptr) {
-			Logger::Error("Could not create surface: {} ");
+			Logger::Error("Could not create surface: {} ", SDL_GetError());
 			return false;
 		}
 
