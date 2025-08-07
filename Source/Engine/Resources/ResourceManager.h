@@ -39,7 +39,7 @@ namespace bacon {
 			auto resource = std::dynamic_pointer_cast<T>(base);
 			//check if cast is successful
 			if (resource == nullptr) {
-				std::cerr << "Resource type mismatch: " << key << std::endl;
+				Logger::Error("Resource type mismatch: {} ", key);
 				return res_t<T>();
 			}
 			//return resource
@@ -49,7 +49,7 @@ namespace bacon {
 		//load resource
 		res_t<T> resource = std::make_shared<T>();
 		if (resource->Load(name, std::forward<Args>(args)...) == false) {
-			std::cerr << "Could not load resource: " << name << std::endl;
+			Logger::Error("Could not load resource: {} ", name);
 			return res_t<T>();
 		}
 

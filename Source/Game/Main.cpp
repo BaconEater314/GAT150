@@ -16,6 +16,7 @@
 #include "Core/File.h"
 #include "SDL3_image/SDL_image.h"
 #include "Resources/ResourceManager.h"
+#include "Core/Logger.h"
 
 #include "Game/Player.h"
 
@@ -30,14 +31,12 @@ int main(int argc, char* argv[]) {
     file::SetCurrentDirectory("Assets");
 
     //initialize Engine
+    Logger::Info("Initialize Engine");
     GetEngine().Initialize();
     
     //initialize game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
     game->Initialize();
-
-    Font* font = new Font();
-    font->Load("Surprise Valentine.ttf", 30);
 
     SDL_Event e;
     bool quit = false;
@@ -54,10 +53,10 @@ int main(int argc, char* argv[]) {
     SDL_FRect greenSquare{ 270, 190, 200, 200 };
 
     // sound work
-    GetEngine().GetAudio().AddSound("drums/bass.wav", "bass");
-    GetEngine().GetAudio().AddSound("drums/snare.wav", "snare");
-    GetEngine().GetAudio().AddSound("drums/clap.wav", "clap");
-    GetEngine().GetAudio().AddSound("drums/cowbell.wav", "cowbell");
+    GetEngine().GetAudio().AddSound("Drums/bass.wav", "bass");
+    GetEngine().GetAudio().AddSound("Drums/snare.wav", "snare");
+    GetEngine().GetAudio().AddSound("Drums/clap.wav", "clap");
+    GetEngine().GetAudio().AddSound("Drums/cowbell.wav", "cowbell");
     GetEngine().GetAudio().AddSound("Sounds/pipe.wav", "pipe");
     GetEngine().GetAudio().AddSound("Sounds/fart.wav", "fart");
     GetEngine().GetAudio().AddSound("Sounds/yippee.wav", "yippee");
@@ -109,6 +108,7 @@ int main(int argc, char* argv[]) {
 
         GetEngine().GetRenderer().Present();
     }
+    Logger::Info("Shutdown Engine");
 
     GetEngine().GetRenderer().Clear();
     

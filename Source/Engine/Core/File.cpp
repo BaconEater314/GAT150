@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 
-namespace bacon {
+namespace bacon::file {
 
     std::string GetCurrentDirectory() {
         std::error_code ec;
