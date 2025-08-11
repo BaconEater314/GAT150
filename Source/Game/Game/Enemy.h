@@ -4,8 +4,8 @@
 class Enemy : public bacon::Actor {
 public:
 	Enemy() = default;
-	Enemy(const bacon::Transform& transform, bacon::res_t<bacon::Texture> texture) :
-		Actor{ transform, texture }
+	Enemy(const bacon::Transform& transform) :
+		Actor{ transform}
 	{ }
 
 	void Update(float dt) override;

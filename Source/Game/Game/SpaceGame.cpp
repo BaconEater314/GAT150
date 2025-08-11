@@ -1,22 +1,8 @@
 #include "SpaceGame.h"
-#include "Math/Vector2.h"
-#include "Renderer/Model.h"
-#include "GameEngine/Scene.h"
-#include "Core/Random.h"
-#include "Renderer/Renderer.h"
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "GameEngine/Game.h"
-#include "Input/InputSystem.h"
 #include "GameData.h"
-#include "Core/Time.h"
-#include "GameEngine/Actor.h"
-#include "Renderer/ParticleSystem.h"
-#include "Audio/AudioSystem.h"
-#include "Resources/ResourceManager.h"
-
-#include <vector>
 
 using namespace bacon;
 
@@ -58,13 +44,17 @@ void SpaceGame::Update(float dt){
         }
         //create player
         Transform transform{ vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,10 };
-        auto player = std::make_unique<Player>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
+        auto player = std::make_unique<Player>(transform);
         player->speed = 750.0f;
         player->rotationRate = 180.0f;
         player->damping = 1.5f;
         player->name = "player";
         player->tag = "player";
         player->health = 3;
+
+        auto spriteRenderer = std::make_unique<SpriteRenderer>();
+        spriteRenderer->textureName = "Images/krill.png";
+        player->AddComponent(std::move(spriteRenderer));
 
         m_scene->AddActor(std::move(player));
         m_gameState = GameState::Game;
@@ -167,13 +157,18 @@ void SpaceGame::SpawnEnemy(){
         Transform transform{ position, random::getReal(0.0f,360.0f), 2.0f};
 
         //creating an enemy
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->damping = 1.5f;
         enemy->fireRate = 3;
         enemy->fireTimer = 5;
         enemy->speed = (random::GetRandomFloat() * 300) + 300;
         enemy->tag = "enemy";
         enemy->health = 1;
+
+        auto spriteRenderer = std::make_unique<SpriteRenderer>();
+        spriteRenderer->textureName = "Images/krill.png";
+        enemy->AddComponent(std::move(spriteRenderer));
+
         m_scene->AddActor(std::move(enemy));
     }
 }
@@ -188,7 +183,7 @@ void SpaceGame::SpawnDreadnought() {
         Transform transform{ position, 0, 10 };
 
         //creating a Dreadnought
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->damping = 1.5f;
         enemy->fireRate = 0.25;
         enemy->fireTimer = 3;
@@ -196,6 +191,11 @@ void SpaceGame::SpawnDreadnought() {
         enemy->speed = (random::GetRandomFloat() * 50) + 200;
         enemy->name = "dread";
         enemy->tag = "enemy";
+
+        auto spriteRenderer = std::make_unique<SpriteRenderer>();
+        spriteRenderer->textureName = "Images/krill.png";
+        enemy->AddComponent(std::move(spriteRenderer));
+
         m_scene->AddActor(std::move(enemy));
 
         if (dreadFire) {

@@ -1,16 +1,7 @@
 #include "Player.h"
-#include "Engine.h"
-#include "Input/InputSystem.h"
-#include "Renderer/Renderer.h"
 #include "GameData.h"
-#include "Math/Vector3.h"
 #include "GameRocket.h"
-#include "GameEngine/Scene.h"
-#include "Renderer/Model.h"
 #include "SpaceGame.h"
-#include "Renderer/ParticleSystem.h"
-#include "Core/Random.h"
-#include "Audio/AudioSystem.h"
 
 using namespace bacon;
 
@@ -56,11 +47,15 @@ void Player::Update(float dt){
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
         fireTimer = fireRate;
         Transform transform{ this->transform.position, this->transform.rotation, 2.0f};
-        auto rocket = std::make_unique<Rocket>(transform, Resources().Get<Texture>("Images/krill.png", GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform);
         rocket->speed = 1500.0f;
         rocket->lifespan = 1.5f;
         rocket->name = "rocket";
         rocket->tag = "player";
+
+        auto spriteRenderer = std::make_unique<SpriteRenderer>();
+        spriteRenderer->textureName = "Images/krill.png";
+        rocket->AddComponent(std::move(spriteRenderer));
 
         GetEngine().GetAudio().PlaySound("pew");
 

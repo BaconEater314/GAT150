@@ -1,5 +1,4 @@
 #include "Font.h"
-#include "Core/Logger.h"
 
 namespace bacon {
 	Font::~Font() {

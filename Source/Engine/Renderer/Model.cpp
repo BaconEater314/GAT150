@@ -1,5 +1,4 @@
 #include "Model.h"
-#include "Renderer.h"
 
 namespace bacon {
 	void Model::Draw(class Renderer& renderer, const vec2& position, float rotation, float scale) {

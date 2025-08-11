@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "Renderer/Renderer.h"
+#include "Components/RendererComponent.h"
 
 namespace bacon{
 	void Actor::Update(float dt) {
@@ -10,6 +11,10 @@ namespace bacon{
 			dead = lifespan <= 0;
 		}
 
+		for (auto& component : m_components) {
+			if(component->active) component->Update(dt);
+		}
+
 		transform.position += velocity * dt;
 		velocity = velocity * (1.0f / (1.0f + damping * dt));
 	}
@@ -17,10 +22,22 @@ namespace bacon{
 	void Actor::Draw(Renderer& renderer) {
 		if (dead) return;
 
-		renderer.DrawTexture(m_texture.get(), transform.position.x, transform.position.y, transform.rotation, transform.scale);
+		for (auto& component : m_components) {
+			if (component->active) {
+				auto rendererComponent = dynamic_cast<RendererComponent*>(component.get());
+				if (rendererComponent) rendererComponent->Draw(renderer);
+			}
+		}
+
+		//renderer.DrawTexture(m_texture.get(), transform.position.x, transform.position.y, transform.rotation, transform.scale);
 	}
 
 	float Actor::GetRadius() {
-		return(m_texture) ? (m_texture->GetSize().Length()) * transform.scale * 0.75f : 0;
+		return 50;//(m_texture) ? (m_texture->GetSize().Length()) * transform.scale * 0.75f : 0;
+	}
+
+	void Actor::AddComponent(std::unique_ptr<Component> component){
+		component->owner = this;
+		m_components.push_back(std::move(component));
 	}
 }

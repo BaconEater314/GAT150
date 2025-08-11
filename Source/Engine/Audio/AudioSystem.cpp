@@ -1,9 +1,4 @@
 #include "AudioSystem.h"
-#include "Core/StringHelper.h"
-#include "Core/Logger.h"
-
-#include <fmod_errors.h>
-#include <iostream>
 
 namespace bacon{
 	/// <summary>

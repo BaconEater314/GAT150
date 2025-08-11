@@ -1,6 +1,5 @@
 #include "Text.h"
 #include "Renderer.h"
-#include "Core/Logger.h"
 
 namespace bacon {
 

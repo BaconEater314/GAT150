@@ -1,12 +1,9 @@
-#include "Scene.h"
-#include "Actor.h"
-#include "../Renderer/Renderer.h"
-#include "../Core/StringHelper.h"
-
 namespace bacon {
 	void Scene::Update(float dt) {
 		for (auto& actor : m_actors) {
-			actor->Update(dt);
+			if (actor->active) {
+				actor->Update(dt);
+			}
 		}
 
 		//remove destroyed actors
@@ -34,7 +31,9 @@ namespace bacon {
 
 	void Scene::Draw(Renderer& renderer) {
 		for (auto& actor :  m_actors) {
-			actor->Draw(renderer);
+			if (actor->active) {
+				actor->Draw(renderer);
+			}
 		}
 	}
 	void Scene::AddActor(std::unique_ptr<Actor> actor){

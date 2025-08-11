@@ -1,19 +1,11 @@
 #include "GameRocket.h"
-#include "Engine.h"
-#include "GameEngine/Scene.h"
-#include "Renderer/Renderer.h"
 #include "Player.h"
-#include "Core/Random.h"
-#include "Renderer/ParticleSystem.h"
 
 using namespace bacon;
 
 void Rocket::Update(float dt) {
     vec2 force = vec2{ 1,0 }.Rotate(math::degToRad(transform.rotation)) * speed;
     velocity = force;
-
-    //transform.position.x = math::wrap(transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
-    //transform.position.y = math::wrap(transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
 
     float angle = transform.rotation + random::getReal(-60.0f, 60.0f);
     vec2 velocity = vec2{ 1,0 }.Rotate(math::degToRad(angle));

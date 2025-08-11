@@ -1,5 +1,3 @@
-#include "Time.h"
-
 namespace bacon {
 	void Time::Tick() {
 		clock::time_point now = clock::now();

@@ -1,28 +1,5 @@
-#include "Core/Random.h"
-#include "Math/Vector2.h"
-#include "Math/Transform.h"
-#include "Renderer/Renderer.h"
-#include "Core/Time.h"
-#include "Input/InputSystem.h"
-#include "Audio/AudioSystem.h"
-#include "Math/Vector3.h"
-#include "Renderer/Model.h"
-#include "GameEngine/Scene.h"
-#include "GameEngine/Actor.h"
-#include "Engine.h"
 #include "Game/SpaceGame.h"
-#include "Renderer/Font.h"
-#include "Renderer/Text.h"
-#include "Core/File.h"
-#include "SDL3_image/SDL_image.h"
-#include "Resources/ResourceManager.h"
-#include "Core/Logger.h"
-
 #include "Game/Player.h"
-
-#include <vector>
-#include <memory>
-#include <iostream>
 
 using namespace bacon;
 

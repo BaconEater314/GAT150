@@ -1,15 +1,16 @@
 #pragma once
+#include "Object.h"
 #include "Math/Transform.h"
 #include "Renderer/Model.h"
 #include "Renderer/Texture.h"
+#include "Component.h"
 
 #include <memory>
 #include <string>
 
 namespace bacon {
-	class Actor {
+	class Actor : public Object {
 	public:
-		std::string name;
 		std::string tag;
 
 		vec2 velocity{ 0, 0 };
@@ -25,9 +26,8 @@ namespace bacon {
 
 	public:
 		Actor() = default;
-		Actor(Transform transform, res_t<Texture> texture) :
-			transform { transform },
-			m_texture { texture }
+		Actor(Transform transform) :
+			transform { transform }
 		{ }
 
 		virtual void Update(float dt);
@@ -37,9 +37,10 @@ namespace bacon {
 
 		float GetRadius();
 
+		void AddComponent(std::unique_ptr<Component> component);
+
 	protected:
-		
-		res_t<Texture> m_texture;
+		std::vector<std::unique_ptr<Component>> m_components;
 
 	private:
 	};

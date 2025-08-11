@@ -1,6 +1,5 @@
 #include "Renderer.h"
 #include "Texture.h"
-#include "Core/Logger.h"
 
 namespace bacon {
     bool Renderer::Initialize() {
