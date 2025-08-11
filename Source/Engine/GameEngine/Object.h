@@ -7,7 +7,7 @@ namespace bacon {
 		virtual ~Object() = default;
 
 		std::string name;
-		bool active = false;
+		bool active = true;
 
 	private:
 	};

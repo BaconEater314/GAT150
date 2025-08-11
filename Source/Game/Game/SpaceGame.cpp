@@ -39,11 +39,12 @@ void SpaceGame::Update(float dt){
     case SpaceGame::GameState::StartRound:
     {
         m_scene->RemoveAllActors();
+
         if (dreadAlive) {
             SpawnDreadnought();
         }
         //create player
-        Transform transform{ vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,10 };
+        Transform transform{ vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,1 };
         auto player = std::make_unique<Player>(transform);
         player->speed = 750.0f;
         player->rotationRate = 180.0f;
@@ -53,7 +54,7 @@ void SpaceGame::Update(float dt){
         player->health = 3;
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Images/krill.png";
+        spriteRenderer->textureName = "Sprites/spaceship02.png";
         player->AddComponent(std::move(spriteRenderer));
 
         m_scene->AddActor(std::move(player));
@@ -124,6 +125,9 @@ void SpaceGame::Update(float dt){
 }
 
 void SpaceGame::Draw(class Renderer& renderer){
+    GetEngine().GetRenderer().DrawTexture(Resources().Get<Texture>("Sprites/space.png").get(), 0, 0, 0, 10);
+
+
     if (m_gameState == GameState::Title) {
         m_titleText->Create(renderer, "BACON GAME", vec3{ 1,0,0 });
         m_titleText->Draw(renderer, 400, 600);
@@ -166,7 +170,14 @@ void SpaceGame::SpawnEnemy(){
         enemy->health = 1;
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Images/krill.png";
+        int rand = random::getInt(0, 5);
+        if(rand == 0) spriteRenderer->textureName = "Sprites/purple_01.png";
+        else if(rand == 1) spriteRenderer->textureName = "Sprites/purple_02.png";
+        else if(rand == 2) spriteRenderer->textureName = "Sprites/purple_03.png";
+        else if(rand == 3) spriteRenderer->textureName = "Sprites/purple_04.png";
+        else if(rand == 4) spriteRenderer->textureName = "Sprites/purple_05.png";
+        else if(rand == 5) spriteRenderer->textureName = "Sprites/purple_06.png";
+
         enemy->AddComponent(std::move(spriteRenderer));
 
         m_scene->AddActor(std::move(enemy));
@@ -193,7 +204,7 @@ void SpaceGame::SpawnDreadnought() {
         enemy->tag = "enemy";
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Images/krill.png";
+        spriteRenderer->textureName = "Sprites/red_02.png";
         enemy->AddComponent(std::move(spriteRenderer));
 
         m_scene->AddActor(std::move(enemy));
