@@ -1,3 +1,5 @@
+#include "Components/ColliderComponent.h"
+
 namespace bacon {
 	void Scene::Update(float dt) {
 		for (auto& actor : m_actors) {
@@ -20,8 +22,13 @@ namespace bacon {
 			for (auto& actorB : m_actors) {
 				if (actorA == actorB || (actorA->dead || actorB->dead)) continue;
 
-				float distance = (actorA->transform.position - actorB->transform.position).Length();
-				if (distance <= actorA->GetRadius() + actorB->GetRadius()) {
+				auto colliderA = actorA->GetComponent<ColliderComponent>();
+				auto colliderB = actorB->GetComponent<ColliderComponent>();
+
+				//make sure both actors have a collider
+				if (!colliderA || !colliderB) continue;
+
+				if (colliderA->CheckCollision(*colliderB)) {
 					actorA->OnCollision(actorB.get());
 					actorB->OnCollision(actorA.get());
 				}

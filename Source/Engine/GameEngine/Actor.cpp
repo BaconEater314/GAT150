@@ -8,15 +8,15 @@ namespace bacon{
 
 		if (lifespan != 0) {
 			lifespan -= dt;
-			dead = lifespan <= 0;
+			if (lifespan <= 0) {
+				dead = true;
+			}
 		}
 
+		//update all components
 		for (auto& component : m_components) {
 			if(component->active) component->Update(dt);
 		}
-
-		transform.position += velocity * dt;
-		velocity = velocity * (1.0f / (1.0f + damping * dt));
 	}
 
 	void Actor::Draw(Renderer& renderer) {
@@ -30,10 +30,6 @@ namespace bacon{
 		}
 
 		//renderer.DrawTexture(m_texture.get(), transform.position.x, transform.position.y, transform.rotation, transform.scale);
-	}
-
-	float Actor::GetRadius() {
-		return 50;//(m_texture) ? (m_texture->GetSize().Length()) * transform.scale * 0.75f : 0;
 	}
 
 	void Actor::AddComponent(std::unique_ptr<Component> component){

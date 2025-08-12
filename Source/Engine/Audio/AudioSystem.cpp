@@ -1,4 +1,5 @@
 #include "AudioSystem.h"
+#include "AudioClip.h"
 
 namespace bacon{
 	/// <summary>
@@ -75,6 +76,11 @@ namespace bacon{
 		FMOD_RESULT result = m_system->playSound(m_sounds[key], 0, false, nullptr);
 		if (!CheckFMODResult(result)) return false;
 
+		return true;
+	}
+	bool AudioSystem::PlaySound(AudioClip& audioClip){
+		FMOD_RESULT result = m_system->playSound(audioClip.m_sound, 0, false, nullptr); 
+		if (!CheckFMODResult(result)) return false;
 		return true;
 	}
 }

@@ -5,7 +5,8 @@ using namespace bacon;
 
 void Rocket::Update(float dt) {
     vec2 force = vec2{ 1,0 }.Rotate(math::degToRad(transform.rotation)) * speed;
-    velocity = force;
+    auto rb = GetComponent<RigidBody>();
+    if (rb) rb->velocity = force;
 
     float angle = transform.rotation + random::getReal(-60.0f, 60.0f);
     vec2 velocity = vec2{ 1,0 }.Rotate(math::degToRad(angle));

@@ -1,8 +1,9 @@
+#include "../GamePCH.h"
+#include "GameData.h"
 #include "SpaceGame.h"
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "GameData.h"
 
 using namespace bacon;
 
@@ -48,7 +49,6 @@ void SpaceGame::Update(float dt){
         auto player = std::make_unique<Player>(transform);
         player->speed = 750.0f;
         player->rotationRate = 180.0f;
-        player->damping = 1.5f;
         player->name = "player";
         player->tag = "player";
         player->health = 3;
@@ -56,6 +56,14 @@ void SpaceGame::Update(float dt){
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
         spriteRenderer->textureName = "Sprites/spaceship02.png";
         player->AddComponent(std::move(spriteRenderer));
+
+        auto rb = std::make_unique<RigidBody>();
+        rb->damping = 1.5f;
+        player->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<CircleCollider2D>();
+        collider->radius = 50;
+        player->AddComponent(std::move(collider));
 
         m_scene->AddActor(std::move(player));
         m_gameState = GameState::Game;
@@ -125,7 +133,7 @@ void SpaceGame::Update(float dt){
 }
 
 void SpaceGame::Draw(class Renderer& renderer){
-    GetEngine().GetRenderer().DrawTexture(Resources().Get<Texture>("Sprites/space.png").get(), 0, 0, 0, 10);
+    GetEngine().GetRenderer().DrawTexture(*Resources().Get<Texture>("Sprites/space.png", GetEngine().GetRenderer()).get(), 0, 0, 0, 10);
 
 
     if (m_gameState == GameState::Title) {
@@ -162,7 +170,6 @@ void SpaceGame::SpawnEnemy(){
 
         //creating an enemy
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
-        enemy->damping = 1.5f;
         enemy->fireRate = 3;
         enemy->fireTimer = 5;
         enemy->speed = (random::GetRandomFloat() * 300) + 300;
@@ -180,6 +187,14 @@ void SpaceGame::SpawnEnemy(){
 
         enemy->AddComponent(std::move(spriteRenderer));
 
+        auto rb = std::make_unique<RigidBody>();
+        rb->damping = 1.5f;
+        enemy->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<CircleCollider2D>();
+        collider->radius = 50;
+        enemy->AddComponent(std::move(collider));
+
         m_scene->AddActor(std::move(enemy));
     }
 }
@@ -195,7 +210,6 @@ void SpaceGame::SpawnDreadnought() {
 
         //creating a Dreadnought
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
-        enemy->damping = 1.5f;
         enemy->fireRate = 0.25;
         enemy->fireTimer = 3;
         enemy->health = 5;
@@ -206,6 +220,14 @@ void SpaceGame::SpawnDreadnought() {
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
         spriteRenderer->textureName = "Sprites/red_02.png";
         enemy->AddComponent(std::move(spriteRenderer));
+
+        auto rb = std::make_unique<RigidBody>();
+        rb->damping = 1.5f;
+        enemy->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<CircleCollider2D>();
+        collider->radius = 50;
+        enemy->AddComponent(std::move(collider));
 
         m_scene->AddActor(std::move(enemy));
 

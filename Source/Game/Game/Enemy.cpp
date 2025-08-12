@@ -27,7 +27,8 @@ void Enemy::Update(float dt){
 
 
     vec2 force = vec2{1,0}.Rotate(math::degToRad(transform.rotation)) * speed;
-    velocity += force * dt;
+    auto rb = GetComponent<RigidBody>();
+    if (rb) rb->velocity += force * dt;
 
     transform.position.x = math::wrap(transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
     transform.position.y = math::wrap(transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
@@ -46,6 +47,13 @@ void Enemy::Update(float dt){
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
         spriteRenderer->textureName = "Images/krill.png";
         rocket->AddComponent(std::move(spriteRenderer));
+
+        auto rb = std::make_unique<RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
 
         scene->AddActor(std::move(rocket));
     }

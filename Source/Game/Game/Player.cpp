@@ -2,6 +2,7 @@
 #include "GameData.h"
 #include "GameRocket.h"
 #include "SpaceGame.h"
+#include "../GamePCH.h"
 
 using namespace bacon;
 
@@ -36,7 +37,8 @@ void Player::Update(float dt){
 
     vec2 direction{ 1,0 };
     vec2 force = direction.Rotate(math::degToRad(transform.rotation)) * thrust * speed;
-    velocity += force * dt;
+    auto rb = GetComponent<RigidBody>();
+    if (rb) rb->velocity += force * dt;
 
     transform.position.x = math::wrap(transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
     transform.position.y = math::wrap(transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
@@ -57,7 +59,14 @@ void Player::Update(float dt){
         spriteRenderer->textureName = "Images/krill.png";
         rocket->AddComponent(std::move(spriteRenderer));
 
-        GetEngine().GetAudio().PlaySound("pew");
+        auto rb = std::make_unique<RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
+
+        GetEngine().GetAudio().PlaySound(*Resources().Get<AudioClip>("pew", GetEngine().GetAudio()).get());
 
         scene->AddActor(std::move(rocket));
     }
