@@ -44,6 +44,7 @@ private:
 	std::unique_ptr<class bacon::Text> m_titleText;
 	std::unique_ptr<class bacon::Text> m_scoreText;
 	std::unique_ptr<class bacon::Text> m_livesText;
+	std::unique_ptr<class bacon::Text> m_healthText;
 
 	bool dreadAlive = false;
 };

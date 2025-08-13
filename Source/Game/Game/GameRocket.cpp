@@ -1,5 +1,6 @@
 #include "GameRocket.h"
 #include "Player.h"
+#include "../GamePCH.h"
 
 using namespace bacon;
 
@@ -15,7 +16,7 @@ void Rocket::Update(float dt) {
     Particle particle;
     particle.position = transform.position;
     particle.velocity = random::onUnitCircle() * random::getReal(20.0f, 120.0f);
-    particle.color = (tag == "enemy") ? vec3{ 0, 1, 1 } : vec3{ 1,1,0 };
+    particle.color = (tag == "enemy") ? vec3{ 0, 1, 1 } : vec3{ 1, 0.5, 0 };
     particle.lifespan = random::getReal(0.15f, 0.3f);
     GetEngine().GetPS().AddParticle(particle);
 

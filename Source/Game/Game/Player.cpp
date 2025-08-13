@@ -56,7 +56,8 @@ void Player::Update(float dt){
         rocket->tag = "player";
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Images/krill.png";
+
+        spriteRenderer->textureName = "Sprites/missile-1.png";
         rocket->AddComponent(std::move(spriteRenderer));
 
         auto rb = std::make_unique<RigidBody>();
@@ -66,7 +67,7 @@ void Player::Update(float dt){
         collider->radius = 10;
         rocket->AddComponent(std::move(collider));
 
-        GetEngine().GetAudio().PlaySound(*Resources().Get<AudioClip>("pew", GetEngine().GetAudio()).get());
+        GetEngine().GetAudio().PlaySound(*Resources().Get<AudioClip>("Sounds/pew.wav", GetEngine().GetAudio()).get());
 
         scene->AddActor(std::move(rocket));
     }
@@ -77,6 +78,10 @@ void Player::Update(float dt){
 
 void Player::OnCollision(Actor* other) {
     if (other->tag != tag) {
+        m_health -= 1;
+        scene->GetGame()->LoseHealth(1);
+    }
+    if (m_health <= 0) {
         dead = true;
         dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
     }

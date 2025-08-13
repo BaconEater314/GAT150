@@ -1,5 +1,5 @@
 #pragma once
-#include "../Renderer/Renderer.h"
+#include "Renderer/Renderer.h"
 
 #include <memory>
 
@@ -16,12 +16,16 @@ namespace bacon {
 		void AddPoints(int points) { m_score += points; }
 		int GetPoints() const { return m_score; }
 
+		void LoseHealth(int health) { m_health -= health; }
+		int GetHealth() const { return m_health; }
+
 		void SetLive(int lives) { m_lives = lives; }
 		int GetLive() const { return m_lives; }
 
 	protected:
 		int m_score{ 0 };
 		int m_lives{ 0 } ;
+		int m_health{ 0 };
 
 	public:
 		std::unique_ptr<class Scene> m_scene;

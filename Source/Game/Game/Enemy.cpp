@@ -45,7 +45,7 @@ void Enemy::Update(float dt){
         rocket->tag = "enemy";
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Images/krill.png";
+        spriteRenderer->textureName = "Sprites/missile-2.png";
         rocket->AddComponent(std::move(spriteRenderer));
 
         auto rb = std::make_unique<RigidBody>();
@@ -71,8 +71,8 @@ void Enemy::OnCollision(Actor* other) {
         } else {
             GetEngine().GetAudio().PlaySound("other_impact");
         }
-        health -= 1;
-        if (health <= 0) {
+        m_health -= 1;
+        if (m_health <= 0) {
             dead = true;
             if (scene->GetActorByName("dread")) {
                 scene->GetGame()->AddPoints(300);

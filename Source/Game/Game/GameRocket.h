@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Engine/GameEngine/Actor.h"
+#include "GameEngine/Actor.h"
 
 class Rocket : public bacon::Actor {
 public:

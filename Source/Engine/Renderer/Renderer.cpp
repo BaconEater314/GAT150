@@ -23,15 +23,15 @@ namespace bacon {
         SDL_Quit();
     }
 
-    bool Renderer::CreateWindow(const std::string& name, int width, int height) {
+    bool Renderer::CreateWindow(const std::string& name, int width, int height, bool fullscreen) {
         m_width = width;
         m_height = height;
 
-        m_window = SDL_CreateWindow(name.c_str(), width, height, 0);
+        m_window = SDL_CreateWindow(name.c_str(), width, height, fullscreen ? (SDL_WINDOW_FULLSCREEN | SDL_WINDOW_OPENGL) : 0);
         if (m_window == nullptr) {
             Logger::Error("SDL_CreateWindow Error: {} ", SDL_GetError());
             SDL_Quit();
-            return true;
+            return false;
         }
 
         m_renderer = SDL_CreateRenderer(m_window, NULL);
@@ -41,6 +41,10 @@ namespace bacon {
             SDL_Quit();
             return false;
         }
+
+        SDL_SetRenderLogicalPresentation(m_renderer, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+
+        return true;
     }
 
     void Renderer::SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {

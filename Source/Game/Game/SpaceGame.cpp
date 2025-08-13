@@ -13,6 +13,7 @@ bool SpaceGame::Initialize() {
     m_titleText = std::make_unique<Text>(Resources().GetWithID<Font>("title_font", "Fonts/Surprise Valentine.ttf", 128.0f));
     m_scoreText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
     m_livesText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
+    m_healthText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
 
     return true;
 }
@@ -23,6 +24,7 @@ void SpaceGame::Update(float dt){
         m_gameState = GameState::Title;
         break;
     case SpaceGame::GameState::Title:
+        m_scene->RemoveAllActors();
         if (GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
             m_gameState = GameState::StartGame;
         }
@@ -33,7 +35,6 @@ void SpaceGame::Update(float dt){
         dreadAlive = false;
         playGameOver = true;
         m_songTimer = 0;
-        
         
         m_gameState = GameState::StartRound;
         break;
@@ -51,10 +52,11 @@ void SpaceGame::Update(float dt){
         player->rotationRate = 180.0f;
         player->name = "player";
         player->tag = "player";
-        player->health = 3;
+        player->m_health = 3;
+        m_scene->GetGame()->LoseHealth(-3);
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Sprites/spaceship02.png";
+        spriteRenderer->textureName = "Sprites/large_grey_01.png";
         player->AddComponent(std::move(spriteRenderer));
 
         auto rb = std::make_unique<RigidBody>();
@@ -73,15 +75,27 @@ void SpaceGame::Update(float dt){
     case SpaceGame::GameState::Game:
     {
         m_enemySpawnTimer -= dt;
+        if (m_score > 2000) {
+            m_enemySpawnTimer -= dt;
+        }
+        if (m_score > 5000) {
+            m_enemySpawnTimer -= dt;
+        }
+        if (m_score > 10000) {
+            m_enemySpawnTimer -= dt;
+        }
         if (m_enemySpawnTimer <= 0) {
             m_enemySpawnTimer = 3;
-
             SpawnEnemy();
+        }
+        if (m_score % 2000 == 0 && m_lives < 3 && m_score > 0) {
+            m_lives += 1;
         }
         if (m_score % 1000 == 0 && m_score > 0 && !dreadAlive) {
             dreadAlive = true;
             SpawnDreadnought();
         }
+
         if (m_score > 5000) {
             if (m_score % 500 == 0 && !dreadAlive) {
                 dreadAlive = true;
@@ -133,7 +147,7 @@ void SpaceGame::Update(float dt){
 }
 
 void SpaceGame::Draw(class Renderer& renderer){
-    GetEngine().GetRenderer().DrawTexture(*Resources().Get<Texture>("Sprites/space.png", GetEngine().GetRenderer()).get(), 0, 0, 0, 10);
+    GetEngine().GetRenderer().DrawTexture(*Resources().Get<Texture>("Sprites/space.png", GetEngine().GetRenderer()).get(), 0, 0, 0, 1);
 
 
     if (m_gameState == GameState::Title) {
@@ -150,6 +164,9 @@ void SpaceGame::Draw(class Renderer& renderer){
 
     m_livesText->Create(renderer, "LIVES: " + std::to_string(m_lives), {1,1,1});
     m_livesText->Draw(renderer, (float)renderer.GetWidth() - 150, (float)20);
+
+    m_healthText->Create(renderer, "HEALTH: " + std::to_string(m_health), { 1,1,1 });
+    m_healthText->Draw(renderer, ((float)renderer.GetWidth()/2)-100, (float)20);
 
     m_scene->Draw(renderer);
 
@@ -174,7 +191,7 @@ void SpaceGame::SpawnEnemy(){
         enemy->fireTimer = 5;
         enemy->speed = (random::GetRandomFloat() * 300) + 300;
         enemy->tag = "enemy";
-        enemy->health = 1;
+        enemy->m_health = 1;
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
         int rand = random::getInt(0, 5);
@@ -206,19 +223,19 @@ void SpaceGame::SpawnDreadnought() {
         dreadFire = true;
 
         vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(2000.0f, 2500.0f);
-        Transform transform{ position, 0, 10 };
+        Transform transform{ position, 0, 5 };
 
         //creating a Dreadnought
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->fireRate = 0.25;
         enemy->fireTimer = 3;
-        enemy->health = 5;
+        enemy->m_health = 5;
         enemy->speed = (random::GetRandomFloat() * 50) + 200;
         enemy->name = "dread";
         enemy->tag = "enemy";
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Sprites/red_02.png";
+        spriteRenderer->textureName = "Sprites/red_06.png";
         enemy->AddComponent(std::move(spriteRenderer));
 
         auto rb = std::make_unique<RigidBody>();

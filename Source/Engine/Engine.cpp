@@ -10,7 +10,7 @@ namespace bacon {
 
 		m_renderer = std::make_unique<bacon::Renderer>();
 		m_renderer->Initialize();
-		m_renderer->CreateWindow("Bacon Engine", 1280, 1024);
+		m_renderer->CreateWindow("Bacon Engine", 1280, 1024, true);
 
 		//Initialize Input System
 		m_input = std::make_unique<bacon::InputSystem>();
@@ -27,6 +27,8 @@ namespace bacon {
 	}
 
 	void Engine::Kill() {
+		Resources().Clear();
+
 		m_audio->Kill();
 		m_input->Kill();
 		m_renderer->Kill();

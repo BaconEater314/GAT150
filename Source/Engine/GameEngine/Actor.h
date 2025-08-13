@@ -20,7 +20,7 @@ namespace bacon {
 		Transform transform;
 		class Scene* scene{ nullptr };
 
-		float health;
+		float m_health;
 
 	public:
 		Actor() = default;
