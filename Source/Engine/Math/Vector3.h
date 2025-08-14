@@ -1,6 +1,8 @@
 #pragma once
-#include <cassert>
 #include "math.h"
+
+#include <cassert>
+#include <iostream>
 
 namespace bacon {
 	template<typename T>
@@ -40,6 +42,59 @@ namespace bacon {
 		float LengthSqr() const { return (x * x) + (y * y) + (z * z); }
 		float Length() const { return bacon::math::sqrtf(LengthSqr()); }
 	};
+
+	template <typename T>
+	std::ostream& operator << (std::ostream& stream, Vector3<T>& v) {
+		//stream << "{" v.x << "," << v.y << "," << v.z << "}";
+
+		return stream;
+	}
+
+	template <typename T>
+	std::istream& operator >> (std::istream& stream, Vector3<T>& v) {
+		char ch = '\0';
+
+		// {x, y, z}
+
+		// {
+		if (!(stream >> std::ws >> ch) || ch != '{') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// x
+		if (!(stream >> std::ws >> v.x)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// ,
+		if (!(stream >> std::ws >> ch) || ch != ',') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// y
+		if (!(stream >> std::ws >> v.y)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// ,
+		if (!(stream >> std::ws >> ch) || ch != ',') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// z
+		if (!(stream >> std::ws >> v.z)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+
+		// }
+		if (!(stream >> std::ws >> ch) || ch != '}') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+
+		return stream;
+	}
 
 	using ivec3 = Vector3<int>;
 	using vec3 = Vector3<float>;

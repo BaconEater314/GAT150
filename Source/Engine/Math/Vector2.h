@@ -1,6 +1,8 @@
 #pragma once
-#include <cassert>
 #include "math.h"
+
+#include <cassert>
+#include <iostream>
 
 namespace bacon {
 	template<typename T>
@@ -84,7 +86,50 @@ namespace bacon {
 
 			return math::atan2f(y, x);
 		}
+
+
 	};
+	template <typename T>
+	std::ostream& operator << (std::ostream& stream, Vector2<T>& v) {
+		//stream << "{" v.x << "," << v.y << "}";
+
+		return stream;
+	}
+
+	template <typename T>
+	std::istream& operator >> (std::istream& stream, Vector2<T>& v) {
+		char ch = '\0';
+
+		// {x, y}
+
+		// {
+		if (!(stream >> std::ws >> ch) || ch != '{') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// x
+		if (!(stream >> std::ws >> v.x)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// ,
+		if (!(stream >> std::ws >> ch) || ch != ',') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// y
+		if (!(stream >> std::ws >> v.y)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		// }
+		if (!(stream >> std::ws >> ch) || ch != '}') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+
+		return stream;
+	}
 
 	using ivec2 = Vector2<int>;
 	using vec2 = Vector2<float>;

@@ -238,6 +238,10 @@ void SpaceGame::SpawnDreadnought() {
         spriteRenderer->textureName = "Sprites/red_06.png";
         enemy->AddComponent(std::move(spriteRenderer));
 
+        //auto meshRenderer = std::make_unique<MeshRenderer>(); 
+        //meshRenderer->meshName = "Sprites/red_06.png";
+        //enemy->AddComponent(std::move(meshRenderer));
+
         auto rb = std::make_unique<RigidBody>();
         rb->damping = 1.5f;
         enemy->AddComponent(std::move(rb));

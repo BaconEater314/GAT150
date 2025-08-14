@@ -7,8 +7,6 @@ int main(int argc, char* argv[]) {
 
     file::SetCurrentDirectory("Assets");
 
-
-
     //initialize Engine
     Logger::Info("Initialize Engine");
     GetEngine().Initialize();
@@ -27,9 +25,6 @@ int main(int argc, char* argv[]) {
     }
 
     vec2(30, 40);
-
-    // Define a rectangle
-    SDL_FRect greenSquare{ 270, 190, 200, 200 };
 
     // sound work
     GetEngine().GetAudio().AddSound("Drums/bass.wav", "bass");
@@ -91,8 +86,8 @@ int main(int argc, char* argv[]) {
 
     GetEngine().GetRenderer().Clear();
     
-    game.release();
     game->Kill();
+    game.release();
     GetEngine().Kill();
 
     return 0;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Math/Transform.h"
-#include "Renderer/Model.h"
+#include "Renderer/Mesh.h"
 #include "Renderer/Texture.h"
 #include "Component.h"
 
@@ -21,6 +21,7 @@ namespace bacon {
 		class Scene* scene{ nullptr };
 
 		float m_health;
+
 
 	public:
 		Actor() = default;
