@@ -1,6 +1,8 @@
 #include "CircleCollider2D.h"
 
 namespace bacon {
+    FACTORY_REGISTER(CircleCollider2D)
+
     void CircleCollider2D::Update(float dt) {
         //
     }

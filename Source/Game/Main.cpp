@@ -42,8 +42,11 @@ int main(int argc, char* argv[]) {
     std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
     std::cout << position.x << " " << position.y << std::endl;
     std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
+    */
 
-    return 0;*/
+    //auto spriteRenderer = Factory::Instance().Create("SpriteRenderer");
+
+    //return 0;
 
     //initialize Engine
     Logger::Info("Initialize Engine");

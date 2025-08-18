@@ -2,6 +2,8 @@
 #include "SpriteRenderer.h"
 
 namespace bacon {
+	FACTORY_REGISTER(SpriteRenderer)
+
 	void SpriteRenderer::Update(float dt){
 
 	}

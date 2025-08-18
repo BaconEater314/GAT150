@@ -8,6 +8,7 @@
 #include "Core/StringHelper.h"
 #include "Core/Time.h"
 #include "Core/Json.h"
+#include "Core/Factory.h"
 
 //GameEngine
 #include "GameEngine/Actor.h"

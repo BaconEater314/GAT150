@@ -1,16 +1,16 @@
 #pragma once
-#include "GameEngine/Actor.h"
+#include "GameEngine/Component.h"
 
-class Player : public bacon::Actor {
+class Player : public bacon::Component {
 public:
 	Player() = default;
-	Player(const bacon::Transform& transform) :
+	/*Player(const bacon::Transform& transform) :
 		Actor{ transform}
-	{ }
+	{ }*/
 
 	void Update(float dt) override;
 
-	void OnCollision(Actor* other) override;
+	void OnCollision(class Actor* other);
 
 public:
 	float speed;

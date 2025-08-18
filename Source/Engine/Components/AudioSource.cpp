@@ -2,6 +2,9 @@
 #include "Audio/AudioClip.h"
 
 namespace bacon {
+	FACTORY_REGISTER(AudioSource)
+
+
 	void AudioSource::Update(float dt) {
 		//
 	}

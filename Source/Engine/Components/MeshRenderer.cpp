@@ -3,6 +3,8 @@
 #include "Renderer/Mesh.h"
 
 namespace bacon {
+	FACTORY_REGISTER(MeshRenderer)
+
 	void MeshRenderer::Update(float dt){
 		//
 	}

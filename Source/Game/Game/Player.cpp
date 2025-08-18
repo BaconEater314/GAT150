@@ -6,20 +6,22 @@
 
 using namespace bacon;
 
+FACTORY_REGISTER(Player)
+
 void Player::Update(float dt){
 
     float rotate = 0;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
 
-    transform.rotation += (rotate * rotationRate) * dt;
+    owner->transform.rotation += (rotate * rotationRate) * dt;
     
     //thrust
     float thrust = 0;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_W)) {
         thrust = 1;
         Particle particle;
-        particle.position = transform.position - 10;
+        particle.position = owner->transform.position - 10;
         particle.velocity = vec2{ random::getReal(-200.0f,200.0f),random::getReal(-200.0f,200.0f) };
         particle.color = { 1,1,1 };
         particle.lifespan = 2;
@@ -28,7 +30,7 @@ void Player::Update(float dt){
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_S)) { 
         thrust = -1; 
         Particle particle;
-        particle.position = transform.position - 10;
+        particle.position = owner->transform.position - 10;
         particle.velocity = vec2{ random::getReal(-200.0f,200.0f),random::getReal(-200.0f,200.0f) };
         particle.color = { 1,1,1 };
         particle.lifespan = 2;
@@ -36,19 +38,19 @@ void Player::Update(float dt){
     }
 
     vec2 direction{ 1,0 };
-    vec2 force = direction.Rotate(math::degToRad(transform.rotation)) * thrust * speed;
-    auto rb = GetComponent<RigidBody>();
+    vec2 force = direction.Rotate(math::degToRad(owner->transform.rotation)) * thrust * speed;
+    auto rb = owner->GetComponent<RigidBody>();
     if (rb) rb->velocity += force * dt;
 
-    transform.position.x = math::wrap(transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
-    transform.position.y = math::wrap(transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
+    owner->transform.position.x = math::wrap(owner->transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
+    owner->transform.position.y = math::wrap(owner->transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
 
     //check fire key pressed 
     fireTimer -= dt;
 
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
         fireTimer = fireRate;
-        Transform transform{ this->transform.position, this->transform.rotation, 2.0f};
+        Transform transform{ this->owner->transform.position, this->owner->transform.rotation, 2.0f};
         auto rocket = std::make_unique<Rocket>(transform);
         rocket->speed = 1500.0f;
         rocket->lifespan = 1.5f;

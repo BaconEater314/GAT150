@@ -4,58 +4,60 @@
 
 using namespace bacon;
 
+FACTORY_REGISTER(Enemy)
+
 void Enemy::Update(float dt){
 
-    Actor* player = scene->GetActorByName("player");
+    Actor* player = owner->scene->GetActorByName<Actor>("player");
 
     bool playerSeen = false;
 
     if (player) {
         vec2 direction{ 0,0 };
-        direction = player->transform.position - transform.position;
+        direction = player->transform.position - owner->transform.position;
         
         direction = direction.Normalized();
-        vec2 forward = vec2{ 1,0 }.Rotate(math::degToRad(transform.rotation));
+        vec2 forward = vec2{ 1,0 }.Rotate(math::degToRad(owner->transform.rotation));
 
         float angle = vec2::SignedAngleBetween(forward,direction);
         angle = math::sign(angle);
-        transform.rotation += math::radToDeg(angle * dt * 5);
+        owner->transform.rotation += math::radToDeg(angle * dt * 5);
 
         angle = math::radToDeg(vec2::AngleBetween(forward, direction));
         playerSeen = angle < 30;
     }
 
 
-    vec2 force = vec2{1,0}.Rotate(math::degToRad(transform.rotation)) * speed;
-    auto rb = GetComponent<RigidBody>();
+    vec2 force = vec2{1,0}.Rotate(math::degToRad(owner->transform.rotation)) * speed;
+    auto rb = owner->GetComponent<RigidBody>();
     if (rb) rb->velocity += force * dt;
 
-    transform.position.x = math::wrap(transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
-    transform.position.y = math::wrap(transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
+    owner->transform.position.x = math::wrap(owner->transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
+    owner->transform.position.y = math::wrap(owner->transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
 
     fireTimer -= dt;
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireRate;
 
-        Transform transform{ this->transform.position, this->transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform);
+        Transform transform{ this->owner->transform.position, this->owner->transform.rotation, 2.0f };
+        auto rocket = std::make_unique<Actor>(transform);
         rocket->speed = 1500.0f;
-        rocket->lifespan = 1.5f;
+        owner->lifespan = 1.5f;
         rocket->name = "rocket";
-        rocket->tag = "enemy";
+        owner->tag = "enemy";
 
         auto spriteRenderer = std::make_unique<SpriteRenderer>();
         spriteRenderer->textureName = "Sprites/missile-2.png";
-        rocket->AddComponent(std::move(spriteRenderer));
+        owner->AddComponent(std::move(spriteRenderer));
 
         auto rb = std::make_unique<RigidBody>();
-        rocket->AddComponent(std::move(rb));
+        owner->AddComponent(std::move(rb));
 
         auto collider = std::make_unique<CircleCollider2D>();
         collider->radius = 10;
-        rocket->AddComponent(std::move(collider));
+        owner->AddComponent(std::move(collider));
 
-        scene->AddActor(std::move(rocket));
+        owner->scene->AddActor(std::move(rocket));
     }
 
 
