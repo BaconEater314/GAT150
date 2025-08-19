@@ -4,13 +4,14 @@
 #include "Renderer/Mesh.h"
 #include "Renderer/Texture.h"
 #include "Component.h"
+#include "Core/Factory.h"
 
 #include <memory>
 #include <string>
 #include <vector>
 
 namespace bacon {
-	class Actor : public Object {
+	class Actor : public Object{
 	public:
 		std::string tag;
 
@@ -31,8 +32,9 @@ namespace bacon {
 
 		virtual void Update(float dt);
 		virtual void Draw(class Renderer& renderer);
+		void Read(const json::value_t& value) override;
 
-		virtual void OnCollision(Actor* other) = 0;
+		virtual void OnCollision(Actor* other) {};
 
 		void AddComponent(std::unique_ptr<Component> component);
 
@@ -44,8 +46,6 @@ namespace bacon {
 
 	protected:
 		std::vector<std::unique_ptr<Component>> m_components;
-
-	private:
 	};
 
 	template<typename T>

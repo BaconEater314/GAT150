@@ -4,9 +4,6 @@
 class Enemy : public bacon::Component {
 public:
 	Enemy() = default;
-	/*Enemy(const bacon::Transform& transform) :
-		Actor{ transform}
-	{ }*/
 
 	void Update(float dt) override;
 
@@ -14,7 +11,7 @@ public:
 	float fireTimer = 3;
 	float fireRate = 1;
 
-	void OnCollision(class Actor* other);
+	void OnCollision(class bacon::Actor* other);
 
 private:
 };

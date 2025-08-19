@@ -1,9 +1,10 @@
 #pragma once
+#include "Core/Serializable.h"
 
 #include <string>
 
 namespace bacon {
-	class Object {
+	class Object : Serializable{
 	public:
 		Object() = default;
 		virtual ~Object() = default;
@@ -11,6 +12,6 @@ namespace bacon {
 		std::string name;
 		bool active = true;
 
-	private:
+		void Read(const json::value_t& value) override;
 	};
 }

@@ -7,15 +7,15 @@ int main(int argc, char* argv[]) {
 
     file::SetCurrentDirectory("Assets");
 
-    /*// load the json data from a file
+    // load the json data from a file
     std::string buffer;
-    file::ReadTextFile("Ajson.txt", buffer);
+    file::ReadTextFile("json.json", buffer);
     // show the contents of the json file (debug)
     std::cout << buffer << std::endl;
 
     // create json document from the json file contents
     rapidjson::Document document;
-    json::Load("json.txt", document);
+    json::Load("json.json", document);
 
     // read the age data from the json
     int age;
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
     std::cout << position.x << " " << position.y << std::endl;
     std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
-    */
+    
 
     //auto spriteRenderer = Factory::Instance().Create("SpriteRenderer");
 

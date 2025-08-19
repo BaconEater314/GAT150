@@ -18,4 +18,9 @@ namespace bacon {
 				owner->transform.scale);
 		}
 	}
+	void SpriteRenderer::Read(const json::value_t& value){
+		Object::Read(value);
+
+		JSON_READ(value, textureName);
+	}
 }

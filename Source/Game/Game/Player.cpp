@@ -9,7 +9,7 @@ using namespace bacon;
 FACTORY_REGISTER(Player)
 
 void Player::Update(float dt){
-
+    /*
     float rotate = 0;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
@@ -75,16 +75,16 @@ void Player::Update(float dt){
     }
 
     Actor::Update(dt);
-
+    */
 }
 
 void Player::OnCollision(Actor* other) {
-    if (other->tag != tag) {
-        m_health -= 1;
-        scene->GetGame()->LoseHealth(1);
+    if (other->tag != owner->tag) {
+        owner->m_health -= 1;
+        owner->scene->GetGame()->LoseHealth(1);
     }
-    if (m_health <= 0) {
-        dead = true;
-        dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
+    if (owner->m_health <= 0) {
+        owner->dead = true;
+        dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
     }
 }

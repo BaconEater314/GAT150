@@ -8,6 +8,9 @@
     <Filter Include="Source\Game">
       <UniqueIdentifier>{ce2bd7c3-5cad-4d98-b5a2-34eec6e0b11a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{08b3ba83-e0e6-4a43-b37e-61bf7f7f79d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -49,5 +52,10 @@
       <Filter>Source\Game</Filter>
     </ClInclude>
     <ClInclude Include="GamePCH.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Build\Assets\scene.json">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

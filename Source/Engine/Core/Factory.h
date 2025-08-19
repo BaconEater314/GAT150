@@ -67,10 +67,17 @@ namespace bacon {
 		auto it = m_registry.find(key);
 		if (it != m_registry.end()) { 
 			//found creator, create object
-			return it->second->Create(); 
+			auto object = it->second->Create(); 
+			T* derived = dynamic_cast<T*>(object.get());
+			if (derived) {
+				object.release();
+				return std::unique_ptr<T>(derived);
+			}
+			Logger::Error("Type mismatch of factory object: {}", name);
+		} else {
+			Logger::Error("Could not create factory object: {}", name);
 		}
 
-		Logger::Error("Could not create factory object: {}", name);
-		return m_registry[key]->Create();
+		return nullptr;
 	}
 }

@@ -1,4 +1,5 @@
 #include "Components/ColliderComponent.h"
+#include "Scene.h"
 
 namespace bacon {
 	void Scene::Update(float dt) {
@@ -50,5 +51,14 @@ namespace bacon {
 
 	void Scene::RemoveAllActors(){
 		m_actors.clear();
+	}
+
+	void bacon::Scene::Read(const json::value_t& value){
+		for (auto& actorValue : value["actors"].GetArray()) {
+			auto actor = Factory::Instance().Create<Actor>("Actor");
+			actor->Read(actorValue);
+
+			AddActor(std::move(actor));
+		}
 	}
 }

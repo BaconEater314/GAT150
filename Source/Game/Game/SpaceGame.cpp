@@ -10,6 +10,10 @@ using namespace bacon;
 bool SpaceGame::Initialize() {
     m_scene = std::make_unique<bacon::Scene>(this);
 
+    json::document_t document;
+    json::Load("scene.json", document);
+    m_scene->Read(document);
+
     m_titleText = std::make_unique<Text>(Resources().GetWithID<Font>("title_font", "Fonts/Surprise Valentine.ttf", 128.0f));
     m_scoreText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
     m_livesText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
@@ -45,29 +49,7 @@ void SpaceGame::Update(float dt){
         if (dreadAlive) {
             SpawnDreadnought();
         }
-        //create player
-        Transform transform{ vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,1 };
-        auto player = std::make_unique<Player>(transform);
-        player->speed = 750.0f;
-        player->rotationRate = 180.0f;
-        player->name = "player";
-        player->tag = "player";
-        player->m_health = 3;
-        m_scene->GetGame()->LoseHealth(-3);
-
-        auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Sprites/large_grey_01.png";
-        player->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<RigidBody>();
-        rb->damping = 1.5f;
-        player->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<CircleCollider2D>();
-        collider->radius = 50;
-        player->AddComponent(std::move(collider));
-
-        m_scene->AddActor(std::move(player));
+        SpawnPlayer();
         m_gameState = GameState::Game;
     }
         break;
@@ -179,7 +161,7 @@ void SpaceGame::OnPlayerDeath(){
 }
 
 void SpaceGame::SpawnEnemy(){
-    Player* player = m_scene->GetActorByName<Player>("player");
+    /*Player* player = m_scene->GetActorByName<Player>("player");
     if (player) {
 
         vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(500.0f, 1000.0f);
@@ -213,11 +195,11 @@ void SpaceGame::SpawnEnemy(){
         enemy->AddComponent(std::move(collider));
 
         m_scene->AddActor(std::move(enemy));
-    }
+    }*/
 }
 
 void SpaceGame::SpawnDreadnought() {
-    Player* player = m_scene->GetActorByName<Player>("player");
+    /*Player* player = m_scene->GetActorByName<Player>("player");
     if (player) {
 
         dreadFire = true;
@@ -256,7 +238,34 @@ void SpaceGame::SpawnDreadnought() {
             dreadFire = false;
             //GetEngine().GetAudio().PlaySound("laser");
         }
-    }
+    }*/
+}
+
+void SpaceGame::SpawnPlayer() {
+    //create player
+    /*Transform transform{vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,1};
+    auto player = std::make_unique<Player>(transform);
+    player->speed = 750.0f;
+    player->rotationRate = 180.0f;
+    player->name = "player";
+    player->tag = "player";
+    player->m_health = 3;
+    m_scene->GetGame()->LoseHealth(-3);
+
+    auto spriteRenderer = std::make_unique<SpriteRenderer>();
+    spriteRenderer->textureName = "Sprites/large_grey_01.png";
+    player->AddComponent(std::move(spriteRenderer));
+
+    auto rb = std::make_unique<RigidBody>();
+    rb->damping = 1.5f;
+    player->AddComponent(std::move(rb));
+
+    auto collider = std::make_unique<CircleCollider2D>();
+    collider->radius = 50;
+    player->AddComponent(std::move(collider));
+
+    m_scene->AddActor(std::move(player));
+    */
 }
 
 void SpaceGame::Kill() {

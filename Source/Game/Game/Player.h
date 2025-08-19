@@ -4,13 +4,10 @@
 class Player : public bacon::Component {
 public:
 	Player() = default;
-	/*Player(const bacon::Transform& transform) :
-		Actor{ transform}
-	{ }*/
 
 	void Update(float dt) override;
 
-	void OnCollision(class Actor* other);
+	void OnCollision(class bacon::Actor* other);
 
 public:
 	float speed;

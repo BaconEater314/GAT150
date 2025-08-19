@@ -1,13 +1,14 @@
 #include "Enemy.h"
 #include "GameRocket.h"
 #include "GameData.h"
+#include "../GamePCH.h"
 
 using namespace bacon;
 
 FACTORY_REGISTER(Enemy)
 
 void Enemy::Update(float dt){
-
+    /*
     Actor* player = owner->scene->GetActorByName<Actor>("player");
 
     bool playerSeen = false;
@@ -62,30 +63,30 @@ void Enemy::Update(float dt){
 
 
 
-    Actor::Update(dt);
+    Actor::Update(dt);*/
 }
 
 void Enemy::OnCollision(Actor* other) {
-    if (other->tag != tag) {
+    if (owner->tag != owner->tag) {
         int rand = random::getInt(0, 2);
         if (rand == 1) {
             GetEngine().GetAudio().PlaySound("impact");
         } else {
             GetEngine().GetAudio().PlaySound("other_impact");
         }
-        m_health -= 1;
-        if (m_health <= 0) {
-            dead = true;
-            if (scene->GetActorByName("dread")) {
-                scene->GetGame()->AddPoints(300);
+        owner->m_health -= 1;
+        if (owner->m_health <= 0) {
+            owner->dead = true;
+            if (owner->scene->GetActorByName("dread")) {
+                owner->scene->GetGame()->AddPoints(300);
             }
             else {
-                scene->GetGame()->AddPoints(100);
+                owner->scene->GetGame()->AddPoints(100);
             }
         }
         for (int i = 0; i < 100; i++) {
             Particle particle;
-            particle.position = transform.position;
+            particle.position = owner->transform.position;
             particle.velocity = random::onUnitCircle() * random::getReal(10.0f, 200.0f);
             particle.color = vec3{ 1, 1, 1 };
             particle.lifespan = 2;

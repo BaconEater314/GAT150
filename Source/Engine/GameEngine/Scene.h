@@ -10,12 +10,13 @@ namespace bacon {
 	class Actor;
 	class Game;
 
-	class Scene {
+	class Scene : public Serializable{
 	public:
 		Scene(Game* game) : m_game{ game } {}
 
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
+		void Read(const json::value_t& value) override;
 
 		void AddActor(std::unique_ptr<Actor> actor);
 		void RemoveAllActors();
@@ -31,6 +32,7 @@ namespace bacon {
 	private:
 		Game* m_game{ nullptr };
 		std::list<std::unique_ptr<Actor>> m_actors;
+
 	};
 	
 	template<typename T>
