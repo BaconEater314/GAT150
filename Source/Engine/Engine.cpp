@@ -10,7 +10,7 @@ namespace bacon {
 
 		m_renderer = std::make_unique<bacon::Renderer>();
 		m_renderer->Initialize();
-		m_renderer->CreateWindow("Bacon Engine", 1280, 1024, true);
+		m_renderer->CreateWindow("Bacon Engine", 1280, 1024, false);
 
 		//Initialize Input System
 		m_input = std::make_unique<bacon::InputSystem>();

@@ -11,7 +11,7 @@ bool SpaceGame::Initialize() {
     m_scene = std::make_unique<bacon::Scene>(this);
 
     json::document_t document;
-    if (json::Load("Assets/scene.json", document)) {
+    if (json::Load("scene.json", document)) {
         //std::cout << document. 
         m_scene->Read(document);
     }
@@ -30,7 +30,7 @@ void SpaceGame::Update(float dt){
         m_gameState = GameState::Title;
         break;
     case SpaceGame::GameState::Title:
-        m_scene->RemoveAllActors();
+        //m_scene->RemoveAllActors();
         if (GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
             m_gameState = GameState::StartGame;
         }

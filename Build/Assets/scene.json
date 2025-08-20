@@ -6,15 +6,15 @@
       "transform": {
         "position": [
           400,
-          300
+          425
         ],
         "rotation": 0,
-        "scale": 2
+        "scale": 1.25
       },
       "components": [
         {
           "type": "SpriteRenderer",
-          "texture_name": "Sprites/space_2.png"
+          "texture_name": "Sprites/space-background.png"
         }
       ]
     },
@@ -34,11 +34,11 @@
           "type": "Player",
           "speed": 750,
           "rotationRate": 180,
-          "fireRate":  0.3
+          "fireRate": 0.3
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Sprites/larger_grey_01.png"
+          "texture_name": "Sprites/large_grey_01.png"
         },
         {
           "type": "RigidBody",

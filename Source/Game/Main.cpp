@@ -5,6 +5,8 @@ using namespace bacon;
 
 int main(int argc, char* argv[]) {
 
+    file::SetCurrentDirectory("Assets");
+
     //initialize Engine
     Logger::Info("Initialize Engine");
     GetEngine().Initialize();

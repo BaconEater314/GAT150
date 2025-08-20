@@ -9,7 +9,7 @@ namespace bacon {
 	}
 
 	void SpriteRenderer::Draw(Renderer& renderer){
-		auto texture = Resources().Get<Texture>(textureName, renderer).get();
+		auto texture = Resources().Get<Texture>(textureName, renderer);
 		if (texture) {
 			renderer.DrawTexture(*texture, 
 				owner->transform.position.x, 

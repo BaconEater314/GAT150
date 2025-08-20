@@ -15,7 +15,7 @@ namespace bacon::json
             return false;
         }
 
-        std::cout << buffer << std::endl;
+        //std::cout << buffer << std::endl;
 
         // convert the string into a json stream
         std::stringstream stream(buffer);
@@ -52,7 +52,7 @@ namespace bacon::json
         }
 
         // get the data
-        data = value[name.c_str()].IsFloat();
+        data = value[name.c_str()].GetFloat();
 
         return true;
     }
@@ -76,7 +76,7 @@ namespace bacon::json
         }
 
         // get the data
-        data = value[name.c_str()].IsString();
+        data = value[name.c_str()].GetString();
 
         return true;
     }
