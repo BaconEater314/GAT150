@@ -11,7 +11,7 @@
 #include <vector>
 
 namespace bacon {
-	class Actor : public Object{
+	class Actor : public Object {
 	public:
 		std::string tag;
 

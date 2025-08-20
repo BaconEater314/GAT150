@@ -9,7 +9,6 @@ using namespace bacon;
 FACTORY_REGISTER(Player)
 
 void Player::Update(float dt){
-    /*
     float rotate = 0;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
@@ -44,7 +43,7 @@ void Player::Update(float dt){
 
     owner->transform.position.x = math::wrap(owner->transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = math::wrap(owner->transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
-
+    /*
     //check fire key pressed 
     fireTimer -= dt;
 
@@ -87,4 +86,12 @@ void Player::OnCollision(Actor* other) {
         owner->dead = true;
         dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
     }
+}
+
+void Player::Read(const bacon::json::value_t& value){
+    Object::Read(value);
+
+    JSON_READ(value, speed);
+    JSON_READ(value, rotationRate);
+    JSON_READ(value, fireRate);
 }

@@ -28,7 +28,6 @@ public:
 
 	void SpawnEnemy();
 	void SpawnDreadnought();
-	void SpawnPlayer();
 
 	bool playGameOver = true;
 	bool dreadFire = false;

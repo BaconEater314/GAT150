@@ -5,49 +5,6 @@ using namespace bacon;
 
 int main(int argc, char* argv[]) {
 
-    file::SetCurrentDirectory("Assets");
-
-    // load the json data from a file
-    std::string buffer;
-    file::ReadTextFile("json.json", buffer);
-    // show the contents of the json file (debug)
-    std::cout << buffer << std::endl;
-
-    // create json document from the json file contents
-    rapidjson::Document document;
-    json::Load("json.json", document);
-
-    // read the age data from the json
-    int age;
-    json::Read(document, "age", age);
-    // show the age data
-    std::cout << age << std::endl;
-
-    // read/show the data from the json file
-    std::string name;
-    float speed;
-    bool isAwake;
-    vec2 position;
-    vec3 color;
-
-    // read the json data
-    JSON_READ(document, name);
-    JSON_READ(document, age);
-    JSON_READ(document, speed);
-    JSON_READ(document, isAwake);
-    JSON_READ(document, position);
-    JSON_READ(document, color);
-
-    // show the data
-    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
-    std::cout << position.x << " " << position.y << std::endl;
-    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
-    
-
-    //auto spriteRenderer = Factory::Instance().Create("SpriteRenderer");
-
-    //return 0;
-
     //initialize Engine
     Logger::Info("Initialize Engine");
     GetEngine().Initialize();

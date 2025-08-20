@@ -11,8 +11,10 @@ bool SpaceGame::Initialize() {
     m_scene = std::make_unique<bacon::Scene>(this);
 
     json::document_t document;
-    json::Load("scene.json", document);
-    m_scene->Read(document);
+    if (json::Load("Assets/scene.json", document)) {
+        //std::cout << document. 
+        m_scene->Read(document);
+    }
 
     m_titleText = std::make_unique<Text>(Resources().GetWithID<Font>("title_font", "Fonts/Surprise Valentine.ttf", 128.0f));
     m_scoreText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
@@ -49,7 +51,6 @@ void SpaceGame::Update(float dt){
         if (dreadAlive) {
             SpawnDreadnought();
         }
-        SpawnPlayer();
         m_gameState = GameState::Game;
     }
         break;
@@ -129,8 +130,8 @@ void SpaceGame::Update(float dt){
 }
 
 void SpaceGame::Draw(class Renderer& renderer){
-    GetEngine().GetRenderer().DrawTexture(*Resources().Get<Texture>("Sprites/space.png", GetEngine().GetRenderer()).get(), 0, 0, 0, 1);
 
+    m_scene->Draw(renderer);
 
     if (m_gameState == GameState::Title) {
         m_titleText->Create(renderer, "BACON GAME", vec3{ 1,0,0 });
@@ -149,8 +150,6 @@ void SpaceGame::Draw(class Renderer& renderer){
 
     m_healthText->Create(renderer, "HEALTH: " + std::to_string(m_health), { 1,1,1 });
     m_healthText->Draw(renderer, ((float)renderer.GetWidth()/2)-100, (float)20);
-
-    m_scene->Draw(renderer);
 
     GetEngine().GetPS().Draw(renderer);
 }
@@ -239,33 +238,6 @@ void SpaceGame::SpawnDreadnought() {
             //GetEngine().GetAudio().PlaySound("laser");
         }
     }*/
-}
-
-void SpaceGame::SpawnPlayer() {
-    //create player
-    /*Transform transform{vec2{bacon::GetEngine().GetRenderer().GetWidth() * 0.5f,GetEngine().GetRenderer().GetHeight() * 0.5f},0,1};
-    auto player = std::make_unique<Player>(transform);
-    player->speed = 750.0f;
-    player->rotationRate = 180.0f;
-    player->name = "player";
-    player->tag = "player";
-    player->m_health = 3;
-    m_scene->GetGame()->LoseHealth(-3);
-
-    auto spriteRenderer = std::make_unique<SpriteRenderer>();
-    spriteRenderer->textureName = "Sprites/large_grey_01.png";
-    player->AddComponent(std::move(spriteRenderer));
-
-    auto rb = std::make_unique<RigidBody>();
-    rb->damping = 1.5f;
-    player->AddComponent(std::move(rb));
-
-    auto collider = std::make_unique<CircleCollider2D>();
-    collider->radius = 50;
-    player->AddComponent(std::move(collider));
-
-    m_scene->AddActor(std::move(player));
-    */
 }
 
 void SpaceGame::Kill() {

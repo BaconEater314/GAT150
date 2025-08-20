@@ -2,23 +2,57 @@
   "actors": [
     {
       "name": "sprite",
+      "tag": "background",
       "transform": {
-        "position": [ 400, 300 ],
+        "position": [
+          400,
+          300
+        ],
         "rotation": 0,
         "scale": 2
-      }
+      },
       "components": [
         {
           "type": "SpriteRenderer",
-          "textureName": "Sprites/space.png"
-        },
-        {
-
+          "texture_name": "Sprites/space_2.png"
         }
       ]
     },
     {
-
+      "name": "player",
+      "tag": "player",
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "Player",
+          "speed": 750,
+          "rotationRate": 180,
+          "fireRate":  0.3
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "Sprites/larger_grey_01.png"
+        },
+        {
+          "type": "RigidBody",
+          "damping": 1.5,
+          "velocity": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 50
+        }
+      ]
     }
   ]
 }
