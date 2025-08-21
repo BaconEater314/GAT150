@@ -6,8 +6,9 @@ namespace bacon {
 	public:
 		float radius;
 
-		void Update(float dt) override;
+		CLASS_PROTOTYPE(CircleCollider2D)
 
+		void Update(float dt) override;
 		bool CheckCollision(ColliderComponent& other) override;
 
 		void Read(const json::value_t& value) override;

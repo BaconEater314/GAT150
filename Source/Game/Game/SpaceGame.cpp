@@ -21,6 +21,17 @@ bool SpaceGame::Initialize() {
     m_livesText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
     m_healthText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));
 
+    //AudioClip::Load("Sounds/impact2.wav", AudioSystem());
+    //GetEngine().GetAudio().AddSound("Sounds/pipe.wav", "pipe");
+    //GetEngine().GetAudio().AddSound("Sounds/fart.wav", "fart");
+    //GetEngine().GetAudio().AddSound("Sounds/yippee.wav", "yippee");
+    //GetEngine().GetAudio().AddSound("Sounds/impact2.wav", "impact");
+    //GetEngine().GetAudio().AddSound("Sounds/pew.wav", "pew");
+    //GetEngine().GetAudio().AddSound("Sounds/impact.wav", "other_impact");
+    //GetEngine().GetAudio().AddSound("Sounds/game_over.wav", "game_over");
+    //GetEngine().GetAudio().AddSound("Sounds/laser.wav", "laser");
+    //GetEngine().GetAudio().AddSound("Sounds/game_music.wav", "music");
+
     return true;
 }
 
@@ -34,6 +45,7 @@ void SpaceGame::Update(float dt){
         if (GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
             m_gameState = GameState::StartGame;
         }
+        
         break;
     case SpaceGame::GameState::StartGame:
         m_score = 0;
@@ -47,6 +59,9 @@ void SpaceGame::Update(float dt){
     case SpaceGame::GameState::StartRound:
     {
         m_scene->RemoveAllActors();
+
+        auto player = Factory::Instance().Create<Actor>("player");
+        m_scene->AddActor(std::move(player));
 
         if (dreadAlive) {
             SpawnDreadnought();
@@ -160,41 +175,25 @@ void SpaceGame::OnPlayerDeath(){
 }
 
 void SpaceGame::SpawnEnemy(){
-    /*Player* player = m_scene->GetActorByName<Player>("player");
+    Actor* player = m_scene->GetActorByName<Actor>("player");
     if (player) {
+        //spawn at a random position away from the player
+        vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(200.0f, 500.0f);
+        Transform transform{ position, random::getReal(0.0f, 360.0f), 2};
 
-        vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(500.0f, 1000.0f);
-        Transform transform{ position, random::getReal(0.0f,360.0f), 2.0f};
-
-        //creating an enemy
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
-        enemy->fireRate = 3;
-        enemy->fireTimer = 5;
-        enemy->speed = (random::GetRandomFloat() * 300) + 300;
-        enemy->tag = "enemy";
-        enemy->m_health = 1;
-
-        auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        int rand = random::getInt(0, 5);
-        if(rand == 0) spriteRenderer->textureName = "Sprites/purple_01.png";
-        else if(rand == 1) spriteRenderer->textureName = "Sprites/purple_02.png";
-        else if(rand == 2) spriteRenderer->textureName = "Sprites/purple_03.png";
-        else if(rand == 3) spriteRenderer->textureName = "Sprites/purple_04.png";
-        else if(rand == 4) spriteRenderer->textureName = "Sprites/purple_05.png";
-        else if(rand == 5) spriteRenderer->textureName = "Sprites/purple_06.png";
-
-        enemy->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<RigidBody>();
-        rb->damping = 1.5f;
-        enemy->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<CircleCollider2D>();
-        collider->radius = 50;
-        enemy->AddComponent(std::move(collider));
-
+        auto enemy = Instantiate("enemy", transform);
         m_scene->AddActor(std::move(enemy));
-    }*/
+    }
+
+    //int rand = random::getInt(0, 5);
+    //if (rand == 0) spriteRenderer->textureName = "Sprites/purple_01.png";
+    //else if (rand == 1) spriteRenderer->textureName = "Sprites/purple_02.png";
+    //else if (rand == 2) spriteRenderer->textureName = "Sprites/purple_03.png";
+    //else if (rand == 3) spriteRenderer->textureName = "Sprites/purple_04.png";
+    //else if (rand == 4) spriteRenderer->textureName = "Sprites/purple_05.png";
+    //else if (rand == 5) spriteRenderer->textureName = "Sprites/purple_06.png";
+
+    //m_scene->AddActor(std::move(enemy));
 }
 
 void SpaceGame::SpawnDreadnought() {

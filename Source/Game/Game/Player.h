@@ -5,6 +5,8 @@ class Player : public bacon::Component {
 public:
 	Player() = default;
 
+	CLASS_PROTOTYPE(Player)
+
 	void Update(float dt) override;
 	void OnCollision(class bacon::Actor* other);
 

@@ -19,7 +19,7 @@ namespace bacon {
 		void Read(const json::value_t& value) override;
 
 		void AddActor(std::unique_ptr<Actor> actor);
-		void RemoveAllActors();
+		void RemoveAllActors(bool force = false);
 
 		template<typename T = Actor>
 		T* GetActorByName(const std::string & name);

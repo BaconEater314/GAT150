@@ -5,6 +5,19 @@
 namespace bacon{
 	FACTORY_REGISTER(Actor)
 
+	Actor::Actor(const Actor& other): 
+		Object{other},
+		tag{other.tag},
+		lifespan{other.lifespan},
+		transform{other.transform}
+	{ 
+		//copy components
+		for (auto& component : other.m_components) {
+			auto clone = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+			AddComponent(std::move(clone));
+		}
+	}
+
 	void Actor::Update(float dt) {
 		if (dead) return;
 
@@ -42,6 +55,7 @@ namespace bacon{
 
 		JSON_READ(value, tag);
 		JSON_READ(value, lifespan);
+		JSON_READ(value, persistant);
 
 		if(JSON_HAS(value, transform)) transform.Read(JSON_GET(value, transform));
 

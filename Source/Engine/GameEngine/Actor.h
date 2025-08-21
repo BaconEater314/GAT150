@@ -17,6 +17,7 @@ namespace bacon {
 
 		bool dead { false };
 		float lifespan { 0 };
+		bool persistant = false;
 
 		Transform transform;
 		class Scene* scene{ nullptr };
@@ -29,6 +30,9 @@ namespace bacon {
 		Actor(Transform transform) :
 			transform { transform }
 		{ }
+		Actor(const Actor& other);
+
+		CLASS_PROTOTYPE(Actor)
 
 		virtual void Update(float dt);
 		virtual void Draw(class Renderer& renderer);

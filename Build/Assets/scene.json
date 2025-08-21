@@ -1,23 +1,5 @@
 {
-  "actors": [
-    {
-      "name": "sprite",
-      "tag": "background",
-      "transform": {
-        "position": [
-          400,
-          425
-        ],
-        "rotation": 0,
-        "scale": 1.25
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "Sprites/space-background.png"
-        }
-      ]
-    },
+  "prototypes": [
     {
       "name": "player",
       "tag": "player",
@@ -51,6 +33,64 @@
         {
           "type": "CircleCollider2D",
           "radius": 50
+        }
+      ]
+    },
+    {
+      "name": "enemy",
+      "tag": "enemy",
+      "transform": {
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "Enemy",
+          "speed": 200,
+          "rotationRate": 180,
+          "fireRate": 1
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "Sprites/purple_01.png"
+        },
+        {
+          "type": "RigidBody",
+          "damping": 1.5,
+          "velocity": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 10
+        }
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "name": "sprite",
+      "tag": "background",
+      "persistant" :  true,
+      "transform": {
+        "position": [
+          400,
+          425
+        ],
+        "rotation": 0,
+        "scale": 1.25
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "Sprites/space-background.png"
         }
       ]
     }

@@ -6,6 +6,8 @@ namespace bacon {
 	public:
 		std::string textureName;
 
+		CLASS_PROTOTYPE(SpriteRenderer)
+
 		void Update(float dt) override;
 		void Draw(Renderer& renderer) override;
 

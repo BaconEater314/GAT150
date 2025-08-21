@@ -3,6 +3,7 @@
 #include "Singleton.h"
 #include "StringHelper.h"
 #include "Logger.h"
+#include "GameEngine/Actor.h"
 
 #include <map>
 #include <memory>
@@ -28,9 +29,24 @@ namespace bacon {
 	requires std::derived_from<T, Object>
 	class Creator : public CreatorBase{
 	public:
-		std::unique_ptr<Object> Create() {
+		std::unique_ptr<Object> Create() override{
 			return std::make_unique<T>();
 		}
+	};
+
+	template <typename T>
+	requires std::derived_from<T, Object>
+	class PrototypeCreator : public CreatorBase {
+	public:
+		PrototypeCreator(std::unique_ptr<T> prototype) :
+			m_prototype {std::move(prototype)}
+		{}
+
+		std::unique_ptr<Object> Create() override{
+			return m_prototype->Clone();
+		}
+	private:
+		std::unique_ptr<T> m_prototype;
 	};
 
 	class Factory : public Singleton<Factory> {
@@ -38,6 +54,10 @@ namespace bacon {
 		template <typename T>
 		requires std::derived_from<T, Object>
 		void Register(const std::string& name);
+
+		template <typename T>
+		requires std::derived_from<T, Object>
+		void RegisterPrototype(const std::string& name, std::unique_ptr<T> prototype);
 
 		template <typename T = Object>
 		requires std::derived_from<T, Object>
@@ -56,6 +76,16 @@ namespace bacon {
 		m_registry[key] = std::make_unique<Creator<T>>();
 
 		Logger::Info("{} added to factory.", name);
+	}
+
+	template<typename T>
+	requires std::derived_from<T, Object>
+	inline void Factory::RegisterPrototype(const std::string& name, std::unique_ptr<T> prototype){
+		//make case-insensitive (lowercase)
+		std::string key = ToLower(name);
+
+		//add prototype creator to registry
+		m_registry[key] = std::make_unique<PrototypeCreator<T>>(std::move(prototype));
 	}
 
 	template<typename T>
@@ -79,5 +109,26 @@ namespace bacon {
 		}
 
 		return nullptr;
+	}
+
+	template<typename T = Actor>
+		requires std::derived_from<T, Actor>
+	std::unique_ptr<T> Instantiate(const std::string& name) {
+		return Factory::Instance().Create<T>(name);
+	}
+
+	template<typename T = Actor>
+	requires std::derived_from<T, Actor>
+	std::unique_ptr<T> Instantiate(const std::string& name, const vec2& position, float rotation, float scale) {
+		auto instance = Factory::Instance().Create<T>(name);
+		instance->transform = Transform{ position, rotation, scale };
+		return instance;
+	}
+	template<typename T = Actor>
+		requires std::derived_from<T, Actor>
+	std::unique_ptr<T> Instantiate(const std::string& name, const Transform& transform) {
+		auto instance = Factory::Instance().Create<T>(name);
+		instance->transform = transform;
+		return instance;
 	}
 }

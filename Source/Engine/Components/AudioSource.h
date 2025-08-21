@@ -6,6 +6,8 @@ namespace bacon {
 	public:
 		std::string audioClipname;
 
+		CLASS_PROTOTYPE(AudioSource)
+
 		void Update(float dt) override;
 		void Play();
 
