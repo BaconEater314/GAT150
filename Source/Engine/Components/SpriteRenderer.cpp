@@ -1,8 +1,13 @@
 #include "Renderer/Renderer.h"
 #include "SpriteRenderer.h"
+#include "Engine.h"
 
 namespace bacon {
 	FACTORY_REGISTER(SpriteRenderer)
+
+	void SpriteRenderer::Start(){
+		texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+	}
 
 	void SpriteRenderer::Update(float dt){
 

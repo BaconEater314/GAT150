@@ -18,6 +18,18 @@ namespace bacon{
 		}
 	}
 
+	void Actor::Start() {
+		for (auto& component : m_components) {
+			component->Start();
+		}
+	}
+
+	void Actor::Destroyed() {
+		for (auto& component : m_components) {
+			component->Destroyed();
+		}
+	}
+
 	void Actor::Update(float dt) {
 		if (dead) return;
 
@@ -42,6 +54,12 @@ namespace bacon{
 				auto rendererComponent = dynamic_cast<RendererComponent*>(component.get());
 				if (rendererComponent) rendererComponent->Draw(renderer);
 			}
+		}
+	}
+	void Actor::OnCollision(Actor* other) {
+		auto collidables = GetComponents<ICollidable>();
+		for (auto& collidable : collidables) {
+			collidable->OnCollision(other);
 		}
 	}
 

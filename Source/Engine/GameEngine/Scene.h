@@ -10,15 +10,16 @@ namespace bacon {
 	class Actor;
 	class Game;
 
-	class Scene : public Serializable{
+	class Scene : public ISerializable{
 	public:
 		Scene(Game* game) : m_game{ game } {}
 
+		bool Load(const std::string& sceneName);
 		void Update(float dt);
 		void Draw(class Renderer& renderer);
 		void Read(const json::value_t& value) override;
 
-		void AddActor(std::unique_ptr<Actor> actor);
+		void AddActor(std::unique_ptr<Actor> actor, bool start = true);
 		void RemoveAllActors(bool force = false);
 
 		template<typename T = Actor>

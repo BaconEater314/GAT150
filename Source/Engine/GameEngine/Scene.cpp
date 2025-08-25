@@ -3,6 +3,25 @@
 #include "EngineMinimal.h"
 
 namespace bacon {
+	bool Scene::Load(const std::string& sceneName) {
+		//load json
+		json::document_t document;
+		if (!(json::Load(sceneName, document))) {
+			Logger::Error("Could not load scene: {}", sceneName);
+			return false;
+		}
+
+		//create scene
+		Read(document);
+
+		//start actors
+		for (auto& actor : m_actors) {
+			actor->Start();
+		}
+
+		return true;
+	}
+
 	void Scene::Update(float dt) {
 		for (auto& actor : m_actors) {
 			if (actor->active) {
@@ -11,13 +30,9 @@ namespace bacon {
 		}
 
 		//remove destroyed actors
-		for (auto iter = m_actors.begin(); iter != m_actors.end();) {
-			if ((*iter)->dead) {
-				iter = m_actors.erase(iter);
-			} else {
-				iter++;
-			}
-		}
+		//std::erase_if(m_actors, [](auto actor) {
+		//	return (actor->destroyed);
+		//});
 
 		//check for collision
 		for (auto& actorA : m_actors) {
@@ -45,8 +60,9 @@ namespace bacon {
 			}
 		}
 	}
-	void Scene::AddActor(std::unique_ptr<Actor> actor){
+	void Scene::AddActor(std::unique_ptr<Actor> actor, bool start){
 		actor->scene = this;
+		if(start) actor->Start();
 		m_actors.push_back(std::move(actor));
 	}
 
@@ -80,7 +96,7 @@ namespace bacon {
 				auto actor = Factory::Instance().Create<Actor>("Actor");
 				actor->Read(actorValue);
 
-				AddActor(std::move(actor));
+				AddActor(std::move(actor), false);
 			}
 		}
 	}

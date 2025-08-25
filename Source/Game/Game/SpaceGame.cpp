@@ -9,12 +9,7 @@ using namespace bacon;
 
 bool SpaceGame::Initialize() {
     m_scene = std::make_unique<bacon::Scene>(this);
-
-    json::document_t document;
-    if (json::Load("scene.json", document)) {
-        //std::cout << document. 
-        m_scene->Read(document);
-    }
+    m_scene->Load("scene.json");
 
     m_titleText = std::make_unique<Text>(Resources().GetWithID<Font>("title_font", "Fonts/Surprise Valentine.ttf", 128.0f));
     m_scoreText = std::make_unique<Text>(Resources().GetWithID<Font>("ui_font", "Fonts/Surprise Valentine.ttf", 48.0f));

@@ -26,6 +26,15 @@
 #include "Resources/Resource.h"
 #include "Resources/ResourceManager.h"
 
+//physics
+#include "Physics/Collidable.h"
+#include "Physics/Physics.h"
+
+//event manager
+#include "Event/EventManager.h"
+#include "Event/Observer.h"
+#include "Event/Event.h"
+
 //third party libraries
 #include <fmod.hpp>
 #include <fmod_errors.h>

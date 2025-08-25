@@ -7,6 +7,11 @@ using namespace bacon;
 
 FACTORY_REGISTER(Enemy)
 
+void Enemy::Start() {
+    m_rigidbody = owner->GetComponent<RigidBody>();
+    fireTimer = fireRate;
+}
+
 void Enemy::Update(float dt){
     /*
     Actor* player = owner->scene->GetActorByName<Actor>("player");

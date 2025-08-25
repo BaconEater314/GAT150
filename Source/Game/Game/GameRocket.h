@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEngine/Component.h"
 
-class Rocket : public bacon::Component {
+class Rocket : public bacon::Component, public bacon::ICollidable {
 public:
 	Rocket() = default;
 
@@ -11,7 +11,7 @@ public:
 
 	float speed = 200;
 
-	void OnCollision(class bacon::Actor* other);
+	void OnCollision(class bacon::Actor* other) override;
 
 private:
 };

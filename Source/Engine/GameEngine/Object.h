@@ -6,7 +6,7 @@
 #define CLASS_PROTOTYPE(classname) virtual std::unique_ptr<Object> Clone() { return std::make_unique<classname>(*this); }
 
 namespace bacon {
-	class Object : Serializable{
+	class Object : ISerializable{
 	public:
 		Object() = default;
 		virtual ~Object() = default;

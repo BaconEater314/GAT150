@@ -1,14 +1,14 @@
 #pragma once
 #include "GameEngine/Component.h"
 
-class Player : public bacon::Component {
+class Player : public bacon::Component, public bacon::ICollidable {
 public:
 	Player() = default;
 
 	CLASS_PROTOTYPE(Player)
 
 	void Update(float dt) override;
-	void OnCollision(class bacon::Actor* other);
+	void OnCollision(class bacon::Actor* other) override;
 
 	void Read(const bacon::json::value_t& value) override;
 
