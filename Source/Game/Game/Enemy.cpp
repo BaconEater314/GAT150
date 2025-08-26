@@ -8,6 +8,8 @@ using namespace bacon;
 FACTORY_REGISTER(Enemy)
 
 void Enemy::Start() {
+    OBSERVER_ADD("player_dead");
+
     m_rigidbody = owner->GetComponent<RigidBody>();
     fireTimer = fireRate;
 }
@@ -83,10 +85,10 @@ void Enemy::OnCollision(Actor* other) {
         if (owner->m_health <= 0) {
             owner->dead = true;
             if (owner->scene->GetActorByName("dread")) {
-                owner->scene->GetGame()->AddPoints(300);
+                EVENT_NOTIFY_DATA(add_points, 300);
             }
             else {
-                owner->scene->GetGame()->AddPoints(100);
+                EVENT_NOTIFY_DATA(add_points, 300);
             }
         }
         for (int i = 0; i < 100; i++) {
@@ -98,4 +100,8 @@ void Enemy::OnCollision(Actor* other) {
             GetEngine().GetPS().AddParticle(particle);
         }
     }
+}
+
+void Enemy::OnNotify(const bacon::Event& event){
+    if (compare(event.id, "player_dead")) owner->dead = true;
 }

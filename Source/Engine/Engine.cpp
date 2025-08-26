@@ -29,6 +29,9 @@ namespace bacon {
 	void Engine::Kill() {
 		Resources().Clear();
 
+		Factory::Instance().RemoveAll();
+		EventManager::Instance().RemoveAll();
+
 		m_audio->Kill();
 		m_input->Kill();
 		m_renderer->Kill();

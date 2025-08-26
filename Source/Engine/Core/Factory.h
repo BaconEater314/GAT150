@@ -63,6 +63,8 @@ namespace bacon {
 		requires std::derived_from<T, Object>
 		std::unique_ptr<T> Create(const std::string& name);
 
+		void RemoveAll() { m_registry.clear(); }
+
 	private:
 		std::map<std::string, std::unique_ptr<CreatorBase>> m_registry;
 	};

@@ -8,6 +8,10 @@
 using namespace bacon;
 
 bool SpaceGame::Initialize() {
+    OBSERVER_ADD(player_dead);
+    OBSERVER_ADD(lose_health);
+    OBSERVER_ADD(add_points);
+
     m_scene = std::make_unique<bacon::Scene>(this);
     m_scene->Load("scene.json");
 
@@ -232,6 +236,19 @@ void SpaceGame::SpawnDreadnought() {
             //GetEngine().GetAudio().PlaySound("laser");
         }
     }*/
+}
+
+void SpaceGame::OnNotify(const Event& event){
+    if (compare(event.id, "player_dead")) {
+        OnPlayerDeath();
+    }
+    else if (compare(event.id, "add_points")) {
+        AddPoints(std::get<int>(event.data));
+    }
+    else if (compare(event.id, "lose_life")) {
+        LoseHealth(1);
+    }
+    std::cout << event.id << std::endl;
 }
 
 void SpaceGame::Kill() {

@@ -22,7 +22,18 @@ namespace bacon {
 	}
 
 	void EventManager::Notify(const Event& event){
-
+		//find observers of event
+		auto iter = m_observers.find(ToLower(event.id));
+		if (iter != m_observers.end()) {
+			//get observers of event
+			auto& observers = iter->second;
+			for (auto observer : observers) {
+				observer->OnNotify(event);
+			}
+		}
+		else {
+			Logger::Warning("Could not find event: {}", event.id);
+		}
 	}
 
 }

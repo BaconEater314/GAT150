@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEngine/Component.h"
 
-class Enemy : public bacon::Component, public bacon::ICollidable {
+class Enemy : public bacon::Component, public bacon::ICollidable, public bacon::IObserver {
 public:
 	Enemy() = default;
 
@@ -17,6 +17,5 @@ public:
 	bacon::RigidBody* m_rigidbody{ nullptr };
 
 	void OnCollision(class bacon::Actor* other) override;
-
-private:
+	void OnNotify(const bacon::Event& event) override;
 };

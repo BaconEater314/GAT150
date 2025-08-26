@@ -80,9 +80,11 @@ void Player::Update(float dt){
 void Player::OnCollision(Actor* other) {
     if (other->tag != owner->tag) {
         owner->m_health -= 1;
+        EVENT_NOTIFY_DATA(lose_health, 1);
         owner->scene->GetGame()->LoseHealth(1);
     }
     if (owner->m_health <= 0) {
+        EVENT_NOTIFY(player_dead);
         owner->dead = true;
         dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
     }
