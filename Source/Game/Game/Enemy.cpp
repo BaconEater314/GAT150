@@ -15,14 +15,13 @@ void Enemy::Start() {
 }
 
 void Enemy::Update(float dt){
-    /*
-    Actor* player = owner->scene->GetActorByName<Actor>("player");
+    Actor* enemy = owner->scene->GetActorByName<Actor>("enemy");
 
     bool playerSeen = false;
 
-    if (player) {
+    if (enemy) {
         vec2 direction{ 0,0 };
-        direction = player->transform.position - owner->transform.position;
+        direction = enemy->transform.position - owner->transform.position;
         
         direction = direction.Normalized();
         vec2 forward = vec2{ 1,0 }.Rotate(math::degToRad(owner->transform.rotation));
@@ -47,30 +46,12 @@ void Enemy::Update(float dt){
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireRate;
 
+        auto rocket = Instantiate("rocket", owner->transform);
         Transform transform{ this->owner->transform.position, this->owner->transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Actor>(transform);
-        rocket->speed = 1500.0f;
-        owner->lifespan = 1.5f;
-        rocket->name = "rocket";
-        owner->tag = "enemy";
-
-        auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Sprites/missile-2.png";
-        owner->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<RigidBody>();
-        owner->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<CircleCollider2D>();
-        collider->radius = 10;
-        owner->AddComponent(std::move(collider));
+        rocket->tag = "enemy";
 
         owner->scene->AddActor(std::move(rocket));
     }
-
-
-
-    Actor::Update(dt);*/
 }
 
 void Enemy::OnCollision(Actor* other) {

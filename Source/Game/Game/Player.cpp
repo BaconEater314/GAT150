@@ -43,38 +43,21 @@ void Player::Update(float dt){
 
     owner->transform.position.x = math::wrap(owner->transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = math::wrap(owner->transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());
-    /*
+    
     //check fire key pressed 
     fireTimer -= dt;
 
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
+        auto rocket = Instantiate("rocket", owner->transform);
         fireTimer = fireRate;
         Transform transform{ this->owner->transform.position, this->owner->transform.rotation, 2.0f};
-        auto rocket = std::make_unique<Rocket>(transform);
-        rocket->speed = 1500.0f;
-        rocket->lifespan = 1.5f;
-        rocket->name = "rocket";
         rocket->tag = "player";
-
-        auto spriteRenderer = std::make_unique<SpriteRenderer>();
-
-        spriteRenderer->textureName = "Sprites/missile-1.png";
-        rocket->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<RigidBody>();
-        rocket->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<CircleCollider2D>();
-        collider->radius = 10;
-        rocket->AddComponent(std::move(collider));
 
         GetEngine().GetAudio().PlaySound(*Resources().Get<AudioClip>("Sounds/pew.wav", GetEngine().GetAudio()).get());
 
-        scene->AddActor(std::move(rocket));
+        owner->scene->AddActor(std::move(rocket));
     }
-
-    Actor::Update(dt);
-    */
+    
 }
 
 void Player::OnCollision(Actor* other) {

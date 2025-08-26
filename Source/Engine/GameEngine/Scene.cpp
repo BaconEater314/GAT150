@@ -29,11 +29,6 @@ namespace bacon {
 			}
 		}
 
-		//remove destroyed actors
-		//std::erase_if(m_actors, [](auto actor) {
-		//	return (actor->destroyed);
-		//});
-
 		//check for collision
 		for (auto& actorA : m_actors) {
 			for (auto& actorB : m_actors) {

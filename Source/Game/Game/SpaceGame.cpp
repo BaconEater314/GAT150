@@ -180,62 +180,33 @@ void SpaceGame::SpawnEnemy(){
         vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(200.0f, 500.0f);
         Transform transform{ position, random::getReal(0.0f, 360.0f), 2};
 
-        auto enemy = Instantiate("enemy", transform);
+        auto enemy = Instantiate("basic enemy", transform);
+
+        /*int rand = random::getInt(0, 5);
+        if (rand == 0) spriteRenderer->textureName = "Sprites/purple_01.png";
+        else if (rand == 1) spriteRenderer->textureName = "Sprites/purple_02.png";
+        else if (rand == 2) spriteRenderer->textureName = "Sprites/purple_03.png";
+        else if (rand == 3) spriteRenderer->textureName = "Sprites/purple_04.png";
+        else if (rand == 4) spriteRenderer->textureName = "Sprites/purple_05.png";
+        else if (rand == 5) spriteRenderer->textureName = "Sprites/purple_06.png";*/
+
         m_scene->AddActor(std::move(enemy));
     }
 
-    //int rand = random::getInt(0, 5);
-    //if (rand == 0) spriteRenderer->textureName = "Sprites/purple_01.png";
-    //else if (rand == 1) spriteRenderer->textureName = "Sprites/purple_02.png";
-    //else if (rand == 2) spriteRenderer->textureName = "Sprites/purple_03.png";
-    //else if (rand == 3) spriteRenderer->textureName = "Sprites/purple_04.png";
-    //else if (rand == 4) spriteRenderer->textureName = "Sprites/purple_05.png";
-    //else if (rand == 5) spriteRenderer->textureName = "Sprites/purple_06.png";
-
-    //m_scene->AddActor(std::move(enemy));
 }
 
 void SpaceGame::SpawnDreadnought() {
-    /*Player* player = m_scene->GetActorByName<Player>("player");
+    Actor* player = m_scene->GetActorByName<Actor>("player");
     if (player) {
-
         dreadFire = true;
 
-        vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(2000.0f, 2500.0f);
-        Transform transform{ position, 0, 5 };
+        //spawn at a random position away from the player
+        vec2 position = player->transform.position + random::onUnitCircle() * random::getReal(200.0f, 500.0f);
+        Transform transform{ position, random::getReal(0.0f, 360.0f), 2 };
 
-        //creating a Dreadnought
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
-        enemy->fireRate = 0.25;
-        enemy->fireTimer = 3;
-        enemy->m_health = 5;
-        enemy->speed = (random::GetRandomFloat() * 50) + 200;
-        enemy->name = "dread";
-        enemy->tag = "enemy";
-
-        auto spriteRenderer = std::make_unique<SpriteRenderer>();
-        spriteRenderer->textureName = "Sprites/red_06.png";
-        enemy->AddComponent(std::move(spriteRenderer));
-
-        //auto meshRenderer = std::make_unique<MeshRenderer>(); 
-        //meshRenderer->meshName = "Sprites/red_06.png";
-        //enemy->AddComponent(std::move(meshRenderer));
-
-        auto rb = std::make_unique<RigidBody>();
-        rb->damping = 1.5f;
-        enemy->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<CircleCollider2D>();
-        collider->radius = 50;
-        enemy->AddComponent(std::move(collider));
-
-        m_scene->AddActor(std::move(enemy));
-
-        if (dreadFire) {
-            dreadFire = false;
-            //GetEngine().GetAudio().PlaySound("laser");
-        }
-    }*/
+        auto dread = Instantiate("dread",transform);
+        m_scene->AddActor(std::move(dread));
+    }
 }
 
 void SpaceGame::OnNotify(const Event& event){

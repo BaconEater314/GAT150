@@ -37,7 +37,7 @@
       ]
     },
     {
-      "name": "enemy",
+      "name": "basic enemy",
       "tag": "enemy",
       "transform": {
         "position": [
@@ -69,7 +69,80 @@
         },
         {
           "type": "CircleCollider2D",
+          "radius": 50
+        }
+      ]
+    },
+    {
+      "name": "rocket",
+      "tag": "player",
+      "transform": {
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "Rocket",
+          "speed": "1500.0f",
+          "lifespan": "1.5f"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "Sprites/missile-1.png"
+        },
+        {
+          "type": "RigidBody",
+          "damping": 0,
+          "velocity": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "CircleCollider2D",
           "radius": 10
+        }
+      ]
+    },
+    {
+      "name": "dread",
+      "tag": "enemy",
+      "transform": {
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "Enemy",
+          "speed": 200,
+          "rotationRate": 180,
+          "fireRate": 0.25,
+          "fireTimer": 3,
+          "health": 5
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "Sprites/red_06.png"
+        },
+        {
+          "type": "RigidBody",
+          "damping": 1.5,
+          "velocity": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
         }
       ]
     }

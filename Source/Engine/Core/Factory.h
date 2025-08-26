@@ -114,7 +114,7 @@ namespace bacon {
 	}
 
 	template<typename T = Actor>
-		requires std::derived_from<T, Actor>
+	requires std::derived_from<T, Actor>
 	std::unique_ptr<T> Instantiate(const std::string& name) {
 		return Factory::Instance().Create<T>(name);
 	}
