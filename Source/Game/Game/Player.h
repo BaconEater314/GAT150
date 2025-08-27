@@ -7,6 +7,7 @@ public:
 
 	CLASS_PROTOTYPE(Player)
 
+	void Start() override;
 	void Update(float dt) override;
 	void OnCollision(class bacon::Actor* other) override;
 

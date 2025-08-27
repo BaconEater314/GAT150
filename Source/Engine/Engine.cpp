@@ -3,6 +3,7 @@
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Renderer/ParticleSystem.h"
+#include "Physics/Physics.h"
 
 namespace bacon {
 
@@ -22,6 +23,9 @@ namespace bacon {
 
 		m_particleSystem = std::make_unique<ParticleSystem>();
 		m_particleSystem->Initialize();
+
+		m_physics = std::make_unique<Physics>();
+		m_physics->Initialize();
 
 		return true;
 	}

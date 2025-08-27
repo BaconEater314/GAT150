@@ -6,6 +6,7 @@
 #include "Input/InputSystem.h"
 #include "Renderer/ParticleSystem.h"
 #include "Resources/ResourceManager.h"
+#include "Physics/Physics.h"
 
 #include <memory>
 
@@ -27,6 +28,7 @@ namespace bacon {
 		InputSystem& GetInput() { return *m_input; }
 		AudioSystem& GetAudio() { return *m_audio; }
 		ParticleSystem& GetPS() { return *m_particleSystem; }
+		Physics& GetPhysics() { return *m_physics; }
 		Time& GetTime() { return m_time; }
 
 	private:
@@ -36,12 +38,10 @@ namespace bacon {
 		Time m_time;
 
 		std::unique_ptr<Renderer> m_renderer;
-
 		std::unique_ptr<InputSystem> m_input;
-
 		std::unique_ptr<AudioSystem> m_audio;
-
 		std::unique_ptr<ParticleSystem> m_particleSystem;
+		std::unique_ptr<Physics> m_physics;
 	};
 
 	inline Engine& GetEngine() { return Engine::Instance(); }

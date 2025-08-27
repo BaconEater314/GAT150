@@ -1,19 +1,70 @@
 #include "RigidBody.h"
 #include "Core/Json.h"
+#include "SpriteRenderer.h"
+#include "Engine.h"
 
 namespace bacon {
-	FACTORY_REGISTER(RigidBody)
+	FACTORY_REGISTER(RigidBody);
 
-	void RigidBody::Update(float dt) {
-		owner->transform.position += velocity * dt;
-		velocity = velocity * (1.0f / (1.0f + damping * dt));
+	RigidBody::RigidBody(const RigidBody& other) {
+		bodyDef = other.bodyDef;
+		size = other.size;
+
+		if (other.m_physicsBody) {
+			m_physicsBody = std::make_unique<PhysicsBody>(*other.m_physicsBody);
+		}
 	}
 
-	void RigidBody::Read(const json::value_t& value){
+	void RigidBody::Start() {
+		bodyDef.actor = owner;
+		if (size.x == 0 && size.y == 0) {
+			auto spriteRenderer = owner->GetComponent<SpriteRenderer>();
+			if (spriteRenderer) {
+				size = spriteRenderer->texture->GetSize();
+			}
+		}
+
+		m_physicsBody = std::make_unique<PhysicsBody>(owner->transform, size, bodyDef, GetEngine().GetPhysics());
+	}
+
+	void RigidBody::Update(float dt) {
+		owner->transform.position = m_physicsBody->GetPosition();
+		owner->transform.rotation = math::radToDeg(m_physicsBody->GetAngle());
+	}
+
+	void RigidBody::ApplyForce(const vec2& force) {
+		m_physicsBody->ApplyForce(force);
+	}
+
+	void RigidBody::ApplyTorque(float radians) {
+		m_physicsBody->ApplyTorque(radians);
+	}
+
+	void RigidBody::Read(const json::value_t& value) {
 		Object::Read(value);
 
-		JSON_READ(value, damping);
-		JSON_READ(value, velocity);
+		JSON_READ(value, size);
+		//JSON_READ(value, scale);
+
+
+		JSON_READ_NAME(value, "gravityScale", bodyDef.gravityScale);
+		JSON_READ_NAME(value, "linearDamping", bodyDef.linearDamping);
+		JSON_READ_NAME(value, "angularDamping", bodyDef.angularDamping);
+		JSON_READ_NAME(value, "constrainAngle", bodyDef.constrainAngle);
+		JSON_READ_NAME(value, "isDynamic", bodyDef.isDynamic);
+		JSON_READ_NAME(value, "friction", bodyDef.friction);
+		JSON_READ_NAME(value, "restitution", bodyDef.restitution);
+		JSON_READ_NAME(value, "density", bodyDef.density);
+		JSON_READ_NAME(value, "isSensor", bodyDef.isSensor);
+
+		std::string shapeName;
+		JSON_READ_NAME(value, "shape", shapeName);
+
+		if (!shapeName.empty()) {
+			if (compare(shapeName, "box")) bodyDef.shape = PhysicsBody::Shape::Box;
+			else if (compare(shapeName, "capsule")) bodyDef.shape = PhysicsBody::Shape::Capsule;
+			else if (compare(shapeName, "circle")) bodyDef.shape = PhysicsBody::Shape::Circle;
+		}
 	}
 }
 

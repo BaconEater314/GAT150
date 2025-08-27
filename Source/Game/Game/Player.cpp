@@ -8,12 +8,17 @@ using namespace bacon;
 
 FACTORY_REGISTER(Player)
 
+void Player::Start(){
+    //m_rigidBody = owner->GetComponent().
+}
+
 void Player::Update(float dt){
     float rotate = 0;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
 
-    owner->transform.rotation += (rotate * rotationRate) * dt;
+    //owner->transform.rotation += (rotate * rotationRate) * dt;
+    //m_rigidBody->Apply
     
     //thrust
     float thrust = 0;
@@ -39,7 +44,8 @@ void Player::Update(float dt){
     vec2 direction{ 1,0 };
     vec2 force = direction.Rotate(math::degToRad(owner->transform.rotation)) * thrust * speed;
     auto rb = owner->GetComponent<RigidBody>();
-    if (rb) rb->velocity += force * dt;
+
+    if (rb) rb->ApplyForce(force);
 
     owner->transform.position.x = math::wrap(owner->transform.position.x, 0.0f, (float)GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = math::wrap(owner->transform.position.y, 0.0f, (float)GetEngine().GetRenderer().GetHeight());

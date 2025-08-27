@@ -1,15 +1,22 @@
 #include "Physics.h"
 
 namespace bacon {
-	/*bool::Physics::Initialize(){
-		b2WorldDef worldDef = b2DefaultWorldDef();
+	bool Physics::Initialize(){
+		/*b2WorldDef worldDef = b2DefaultWorldDef();
 		worldDef.gravity = b2Vec2{0.0f, 10,0f};
-		m_worldId = b2CreateWorld(&worldDef);
+		m_worldId = b2CreateWorld(&worldDef);*/
 
 		return true;
 	}
+	/*
 
-	void Physics
+	void Physics::Kill(){
+		b2DestroyWorld(m_worldId);
+	}
+
+	void Physics::Update(){
+		
+	}
 	
 	*/
 }

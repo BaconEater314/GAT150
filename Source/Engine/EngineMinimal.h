@@ -29,6 +29,7 @@
 //physics
 #include "Physics/Collidable.h"
 #include "Physics/Physics.h"
+#include "Physics/PhysicsBody.h"
 
 //event manager
 #include "Event/EventManager.h"

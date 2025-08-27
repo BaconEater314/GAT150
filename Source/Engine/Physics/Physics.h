@@ -15,9 +15,15 @@ namespace bacon {
 
 		void Update(float dt);
 
-		vec2 WorldToPixel(const vec2& world) {}
+		/*vec2 WorldToPixel(const vec2& world) { return world * 48; }
+		vec2 WorldToPixel(const vec2& world) { return pixel / 48; }
+
+		static void SetPixelsPerUnit(float ppi) {ms_oixelsPerUnit = ppu}
+
+		static float ms_pixelsPerUnit;
 
 	private:
-		//b2WorldId m_worldId;
+		friend class PhysicsBody;
+		//b2WorldId m_worldId;*/
 	};
 }
