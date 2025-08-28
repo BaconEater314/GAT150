@@ -23,7 +23,7 @@ namespace bacon {
 				size = spriteRenderer->texture->GetSize();
 			}
 		}
-
+		size *= scale;
 		m_physicsBody = std::make_unique<PhysicsBody>(owner->transform, size, bodyDef, GetEngine().GetPhysics());
 	}
 
@@ -44,7 +44,7 @@ namespace bacon {
 		Object::Read(value);
 
 		JSON_READ(value, size);
-		//JSON_READ(value, scale);
+		JSON_READ(value, scale);
 
 
 		JSON_READ_NAME(value, "gravityScale", bodyDef.gravityScale);

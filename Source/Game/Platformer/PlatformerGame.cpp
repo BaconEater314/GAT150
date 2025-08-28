@@ -9,8 +9,8 @@ bool PlatformerGame::Initialize() {
 	OBSERVER_ADD(add_points);
 
 	m_scene = std::make_unique<bacon::Scene>(this);
-	m_scene->Load("Scenes/level.json");
 	m_scene->Load("Scenes/prototype.json");
+	m_scene->Load("Scenes/level.json");
 
 	return true;
 }
@@ -23,7 +23,7 @@ void PlatformerGame::Update(float dt) {
 	switch (m_gameState)
 	{
 	case GameState::Initialize:
-
+		m_gameState = GameState::StartRound;
 		break;
 	case GameState::Title:
 
@@ -32,7 +32,9 @@ void PlatformerGame::Update(float dt) {
 
 		break;
 	case GameState::StartRound:
-
+		SpawnPlayer();
+		SpawnEnemy();
+		m_gameState = GameState::Game;
 		break;
 	case GameState::Game:
 
@@ -55,8 +57,16 @@ void PlatformerGame::Draw(class bacon::Renderer& renderer) {
 	GetEngine().GetPS().Draw(renderer);
 }
 
-void PlatformerGame::SpawnEnemy() {
+void PlatformerGame::SpawnPlayer() {
+	auto player = Instantiate("platformPlayer");
+	//player->transform.position = vec2{ random::getReal(0.0f,1080.0f),0.0f };
+	m_scene->AddActor(std::move(player));
+}
 
+void PlatformerGame::SpawnEnemy() {
+	auto enemy = Instantiate("platformEnemy");
+	//player->transform.position = vec2{ random::getReal(0.0f,1080.0f),0.0f };
+	m_scene->AddActor(std::move(enemy));
 }
 
 void PlatformerGame::OnPlayerDeath() {

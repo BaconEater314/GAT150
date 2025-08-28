@@ -1,7 +1,7 @@
 {
   "prototypes": [
     {
-      "name": "player",
+      "name": "platformPlayer",
       "tag": "player",
       "transform": {
         "position": [
@@ -13,119 +13,54 @@
       },
       "components": [
         {
-          "type": "Player",
+          "type": "PlayerController",
           "speed": 70,
-          "rotationRate": 30,
-          "fireRate": 0.3
+          "maxSpeed": 100,
+          "attackSpeed": 1,
+          "jump": 500
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Sprites/large_grey_01.png"
+          "texture_name": "Textures/box.png"
         },
         {
           "type": "RigidBody",
-          "gravityScale": 0
-        },
-        {
-          "type": "CircleCollider2D",
-          "radius": 50
+          "gravityScale": 1.0,
+          "constrainAngle": true,
+          "shape": "capsule",
+          "scale": [ 1, 1 ]
         }
       ]
     },
     {
-      "name": "basic enemy",
+      "name": "platformEnemy",
       "tag": "enemy",
       "transform": {
         "position": [
-          0,
-          0
+          740,
+          512
         ],
         "rotation": 0,
         "scale": 1
       },
       "components": [
         {
-          "type": "Enemy",
-          "speed": 200,
-          "rotationRate": 30,
-          "fireRate": 1
+          "type": "EnemyController",
+          "speed": 70,
+          "maxSpeed": 100,
+          "attackSpeed": 1,
+          "jump": 500
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Sprites/purple_01.png"
+          "texture_name": "Textures/theSquare.png"
         },
         {
           "type": "RigidBody",
-          "gravityScale": 0
-        },
-        {
-          "type": "CircleCollider2D",
-          "radius": 50
-        }
-      ]
-    },
-    {
-      "name": "rocket",
-      "tag": "player",
-      "transform": {
-        "position": [
-          0,
-          0
-        ],
-        "rotation": 0,
-        "scale": 1
-      },
-      "components": [
-        {
-          "type": "Rocket",
-          "speed": "1500.0f",
-          "lifespan": "1.5f"
-        },
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "Sprites/missile-1.png"
-        },
-        {
-          "type": "RigidBody",
-          "gravityScale": 0
-        },
-        {
-          "type": "CircleCollider2D",
-          "radius": 10
-        }
-      ]
-    },
-    {
-      "name": "dread",
-      "tag": "enemy",
-      "transform": {
-        "position": [
-          0,
-          0
-        ],
-        "rotation": 0,
-        "scale": 1
-      },
-      "components": [
-        {
-          "type": "Enemy",
-          "speed": 200,
-          "rotationRate": 30,
-          "fireRate": 0.25,
-          "fireTimer": 3,
-          "health": 5
-        },
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "Sprites/red_06.png"
-        },
-        {
-          "type": "RigidBody",
-          "gravityScale": 0
-        },
-        {
-          "type": "CircleCollider2D",
-          "radius": 60
+          "gravityScale": 1.0,
+          "constrainAngle": true,
+          "shape": "box",
+          "scale": [ 1, 1 ]
         }
       ]
     }
