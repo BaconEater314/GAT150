@@ -47,6 +47,7 @@ namespace bacon {
 		m_input->Update();
 		m_audio->Update();
 		m_particleSystem->Update(m_time.GetDeltaTime());
+		m_physics->Update(m_time.GetDeltaTime());
 	}
 
 	void Engine::Draw(){

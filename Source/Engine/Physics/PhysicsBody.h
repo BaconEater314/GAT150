@@ -40,6 +40,6 @@ namespace bacon {
 		void ApplyTorque(float radians);
 
 	private:
-		//b2BodyId m_bodyId { b2_nullBodyId };
+		b2BodyId m_bodyId { b2_nullBodyId };
 	};
 }

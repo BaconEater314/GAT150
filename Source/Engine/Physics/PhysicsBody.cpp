@@ -2,7 +2,7 @@
 
 namespace bacon {
 	PhysicsBody::PhysicsBody(const Transform& transform, vec2& size, const PhysicsBodyDef& def, const Physics& physics)	{
-		/*b2BodyDef bodyDef = b2DefaultBodyDef();
+		b2BodyDef bodyDef = b2DefaultBodyDef();
 
 		// set body definition
 		bodyDef.type = (def.isDynamic) ? b2_dynamicBody : b2_staticBody;
@@ -48,28 +48,27 @@ namespace bacon {
 		break;
 		default:
 			break;
-		}*/
+		}
 	}
 
 	PhysicsBody::~PhysicsBody(){
-		//b2DestoryBody(m_bodyId)
+		b2DestroyBody(m_bodyId);
 	}
 
 	vec2 PhysicsBody::GetPosition(){
-		//return Physics::WorldToPixel(to_vec2(b2Body_GetPosition(m_bodyId)));
+		return Physics::WorldToPixel(to_vec2(b2Body_GetPosition(m_bodyId)));
 		return { 0,0 };
 	}
 
 	float PhysicsBody::GetAngle(){
-		//return b2Body_GetAngle(b2Body_GetRotation(m_bodyId));
-		return 0.0f;
+		return b2Rot_GetAngle(b2Body_GetRotation(m_bodyId));
 	}
 
 	void PhysicsBody::ApplyForce(const vec2& force){
-		//b2Body_ApplyForce(m_bodyId, to_b2(Physics::PixelToWorld(force)), true);
+		b2Body_ApplyForceToCenter(m_bodyId, to_b2(Physics::PixelToWorld(force)), true);
 	}
 
 	void PhysicsBody::ApplyTorque(float radians){
-		//b2Body_ApplyTorque(m_bodyId, radians, true);
+		b2Body_ApplyTorque(m_bodyId, radians, true);
 	}
 }

@@ -1,43 +1,23 @@
 #include "Game/SpaceGame.h"
 #include "Game/Player.h"
+#include "Platformer/PlatformerGame.h"
 
 using namespace bacon;
 
 int main(int argc, char* argv[]) {
 
-    file::SetCurrentDirectory("Assets");
+    file::SetCurrentDirectory("Assets/Platformer");
 
     //initialize Engine
     Logger::Info("Initialize Engine");
     GetEngine().Initialize();
     
     //initialize game
-    std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
+    std::unique_ptr<PlatformerGame> game = std::make_unique<PlatformerGame>();
     game->Initialize();
 
     SDL_Event e;
     bool quit = false;
-
-    //create stars
-    std::vector<vec2> stars;
-    for (int i = 0; i < 100; i++) {
-        stars.push_back(vec2{random::GetRandomFloat() * 1280 ,random::GetRandomFloat() * 1024 });
-    }
-
-    vec2(30, 40);
-
-    // sound work
-    //GetEngine().GetAudio().AddSound("Sounds/pipe.wav", "pipe");
-    //GetEngine().GetAudio().AddSound("Sounds/fart.wav", "fart");
-    //GetEngine().GetAudio().AddSound("Sounds/yippee.wav", "yippee");
-    //GetEngine().GetAudio().AddSound("Sounds/impact2.wav", "impact");
-    //GetEngine().GetAudio().AddSound("Sounds/pew.wav", "pew");
-    //GetEngine().GetAudio().AddSound("Sounds/impact.wav", "other_impact");
-    //GetEngine().GetAudio().AddSound("Sounds/game_over.wav", "game_over");
-    //GetEngine().GetAudio().AddSound("Sounds/laser.wav", "laser");
-    //GetEngine().GetAudio().AddSound("Sounds/game_music.wav", "music");
-    
-    auto texture = ResourceManager::Instance().Get<Texture>("Images/krill.png", GetEngine().GetRenderer());
 
     // Main loop
     // This is where all the code that runs the code goes.

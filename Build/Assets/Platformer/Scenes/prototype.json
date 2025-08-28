@@ -14,13 +14,13 @@
       "components": [
         {
           "type": "Player",
-          "speed": 750,
+          "speed": 70,
           "rotationRate": 30,
           "fireRate": 0.3
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Space/Sprites/large_grey_01.png"
+          "texture_name": "Sprites/large_grey_01.png"
         },
         {
           "type": "RigidBody",
@@ -52,7 +52,7 @@
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Space/Sprites/purple_01.png"
+          "texture_name": "Sprites/purple_01.png"
         },
         {
           "type": "RigidBody",
@@ -83,7 +83,7 @@
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Space/Sprites/missile-1.png"
+          "texture_name": "Sprites/missile-1.png"
         },
         {
           "type": "RigidBody",
@@ -117,7 +117,7 @@
         },
         {
           "type": "SpriteRenderer",
-          "texture_name": "Space/Sprites/red_06.png"
+          "texture_name": "Sprites/red_06.png"
         },
         {
           "type": "RigidBody",
@@ -126,27 +126,6 @@
         {
           "type": "CircleCollider2D",
           "radius": 60
-        }
-      ]
-    }
-  ],
-  "actors": [
-    {
-      "name": "sprite",
-      "tag": "background",
-      "persistant" :  true,
-      "transform": {
-        "position": [
-          400,
-          425
-        ],
-        "rotation": 0,
-        "scale": 0.65
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "Space/Sprites/Astral_Plane.png"
         }
       ]
     }
