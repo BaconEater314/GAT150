@@ -23,4 +23,5 @@ namespace bacon::json{
 	bool Read(const value_t& value, const std::string& name, std::string& data, bool required = false);
 	bool Read(const value_t& value, const std::string& name, vec2& data, bool required = false);
 	bool Read(const value_t& value, const std::string& name, vec3& data, bool required = false);
+	bool Read(const value_t& value, const std::string& name, std::vector<int>& data, bool required = false);
 }

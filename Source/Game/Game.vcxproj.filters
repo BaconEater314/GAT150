@@ -93,5 +93,8 @@
     <None Include="..\..\Build\Assets\Platformer\Scenes\prototype.json">
       <Filter>Assets\Platformer</Filter>
     </None>
+    <None Include="..\..\Build\Assets\Platformer\Tilemaps\map1.json">
+      <Filter>Assets\Platformer</Filter>
+    </None>
   </ItemGroup>
 </Project>

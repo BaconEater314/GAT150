@@ -119,7 +119,30 @@ namespace bacon::json
             }
 
             // get the data
-            data[i] = array[i].GetFloat();
+            data[i] = array[i].GetInt();
+        }
+
+        return true;
+    }
+
+    bool Read(const value_t& value, const std::string& name, vec3& data, bool required) {
+        // check if the value has the "<name>" and is an array
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray()) {
+            if (required) Logger::Error("Could not read required Json value (vec3): {}.", name);
+            return false;
+        }
+
+        // get json array object
+        auto& array = value[name.c_str()];
+        // get array values
+        for (rapidjson::SizeType i = 0; i < array.Size(); i++) {
+            if (!array[i].IsNumber()) {
+                Logger::Error("Could not read Json value: {}.", name);
+                return false;
+            }
+
+            // get the data
+            data[i] = array[i].GetInt();
         }
 
         return true;

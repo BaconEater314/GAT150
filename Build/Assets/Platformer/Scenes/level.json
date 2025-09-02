@@ -18,6 +18,23 @@
       ]
     },
     {
+      "persistant": true,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 5
+      },
+      "components": [
+        {
+          "type": "TilemapRenderer",
+          "texture_name": "Tilemaps/map1.json"
+        }
+      ]
+    },
+    {
       "persistent": true,
       "transform": {
         "position": [
@@ -75,7 +92,7 @@
         },
         {
           "type": "RigidBody",
-          "resitution" :  1
+          "resitution": 1
         }
       ]
     }
