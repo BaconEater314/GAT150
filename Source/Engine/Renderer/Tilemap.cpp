@@ -6,8 +6,8 @@ namespace bacon {
 	bool Tilemap::Load(const std::string& filename, class Renderer& renderer) {
 		// load json
 		json::document_t document;
-		if (json::Load(filename, document)) {
-			Logger::Error("Could not load Tilemap json {}", filename);
+		if (!json::Load(filename, document)) {
+			Logger::Error("Could not load Tilemap json {}.", filename);
 			return false;
 		}
 
@@ -41,6 +41,9 @@ namespace bacon {
 							if (!layer.texture) {
 								Logger::Warning("Could not read tilemap texture: {}.", value);
 							}
+						}
+						else if (compare(name, "Collision")) {
+							JSON_READ_NAME(propertyValue, "value", layer.hasCollision);
 						}
 					}
 				}

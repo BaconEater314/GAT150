@@ -217,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Build\Assets\json.json" />
+    <None Include="..\..\Build\Assets\Platformer\Animations\bat_idle.json" />
     <None Include="..\..\Build\Assets\Platformer\Scenes\level.json" />
     <None Include="..\..\Build\Assets\Platformer\Scenes\prototype.json" />
     <None Include="..\..\Build\Assets\Platformer\Tilemaps\map1.json" />

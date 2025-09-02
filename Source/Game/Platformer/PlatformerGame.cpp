@@ -64,7 +64,8 @@ void PlatformerGame::SpawnPlayer() {
 }
 
 void PlatformerGame::SpawnEnemy() {
-	auto enemy = Instantiate("platformEnemy");
+	//auto enemy = Instantiate("platformEnemy");
+	auto enemy = Instantiate("bat");
 	//player->transform.position = vec2{ random::getReal(0.0f,1080.0f),0.0f };
 	m_scene->AddActor(std::move(enemy));
 }

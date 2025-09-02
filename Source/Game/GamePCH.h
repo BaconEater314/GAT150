@@ -11,7 +11,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/Texture.h"
-//#include "Renderer/Animator.h"
+#include "Renderer/TextureAnimation.h"
 #include "Renderer/Tilemap.h"
 
 //audio
@@ -26,5 +26,6 @@
 #include "Components/RigidBody.h"
 #include "Components/CircleCollider2D.h"
 #include "Components/TilemapRenderer.h"
+#include "Components/Animator.h"
 
 

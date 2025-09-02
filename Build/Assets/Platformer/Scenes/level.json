@@ -30,7 +30,7 @@
       "components": [
         {
           "type": "TilemapRenderer",
-          "texture_name": "Tilemaps/map1.json"
+          "tilemap_name": "Tilemaps/map1.json"
         }
       ]
     },

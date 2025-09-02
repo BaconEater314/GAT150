@@ -125,7 +125,7 @@ namespace bacon::json
         return true;
     }
 
-    bool Read(const value_t& value, const std::string& name, vec3& data, bool required) {
+    bool Read(const value_t& value, const std::string& name, std::vector<int>& data, bool required) {
         // check if the value has the "<name>" and is an array
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray()) {
             if (required) Logger::Error("Could not read required Json value (vec3): {}.", name);
@@ -142,7 +142,7 @@ namespace bacon::json
             }
 
             // get the data
-            data[i] = array[i].GetInt();
+            data.push_back(array[i].GetInt());
         }
 
         return true;

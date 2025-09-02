@@ -12,7 +12,7 @@ namespace bacon {
 		// Load the tilemap resource
 		m_tilemap = Resources().Get<Tilemap>(m_tilemapName, GetEngine().GetRenderer());
 		if (!m_tilemap) {
-			Logger::Error("Could not load tilemap: {}", m_tilemapName);
+			Logger::Error("Could not load tilemap: {}.", m_tilemapName);
 			return;
 		}
 		
@@ -58,8 +58,8 @@ namespace bacon {
 				int tileId = layer.data[i];
 				if (tileId == 0) continue;
 
-				rect source;
-				vec2 position;
+				rect source = m_tilemap->GetTextureRect(layer, tileId);
+				vec2 position = owner->transform.position + m_tilemap->GetPosition(layer, i) * owner->transform.scale;
 
 				renderer.DrawTexture(*layer.texture, source, position.x, position.y, owner->transform.rotation, owner->transform.scale);
 			}
