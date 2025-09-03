@@ -30,6 +30,7 @@ namespace bacon {
 		}
 
 		//check for collision
+		/*
 		for (auto& actorA : m_actors) {
 			for (auto& actorB : m_actors) {
 				if (actorA == actorB || (actorA->dead || actorB->dead)) continue;
@@ -46,6 +47,7 @@ namespace bacon {
 				}
 			}
 		}
+		*/
 	}
 
 	void Scene::Draw(Renderer& renderer) {

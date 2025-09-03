@@ -67,7 +67,6 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":20,
          "id":2,
-         "locked":true,
          "name":"Background Terrain",
          "opacity":1,
          "properties":[
@@ -110,7 +109,6 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":20,
          "id":3,
-         "locked":true,
          "name":"Background Objects",
          "opacity":1,
          "properties":[

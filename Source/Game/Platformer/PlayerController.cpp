@@ -21,10 +21,18 @@ void PlayerController::Update(float dt){
 	if (GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
 		m_rigidBody->ApplyForce(vec2{0,-1 * jump * 250});
 	}
+
+	auto spriteRenderer = owner->GetComponent<SpriteRenderer>();
+	if (spriteRenderer) {
+		if (math::fabs(m_rigidBody->velocity.x != 0.1f)) {
+			spriteRenderer->flipH = (m_rigidBody->velocity.x < 0);
+		}
+
+	}
 }
 
 void PlayerController::OnCollision(bacon::Actor* other){
-
+	std::cout << other->name << std::endl;
 }
 
 void PlayerController::Read(const bacon::json::value_t& value){

@@ -24,6 +24,9 @@ namespace bacon {
 		shapeDef.density = def.density;
 		shapeDef.isSensor = def.isSensor;
 
+		if (def.isSensor) shapeDef.enableSensorEvents = true;
+		else shapeDef.enableContactEvents = true;
+
 		// create shape
 		b2Vec2 hsize = to_b2(Physics::PixelToWorld(size * transform.scale * 0.5f));
 		switch (def.shape)
@@ -70,5 +73,13 @@ namespace bacon {
 
 	void PhysicsBody::ApplyTorque(float radians){
 		b2Body_ApplyTorque(m_bodyId, radians, true);
+	}
+
+	void PhysicsBody::SetVelocity(){
+
+	}
+
+	vec2 PhysicsBody::GetVelocity(){
+		return Physics::WorldToPixel(to_vec2(b2Body_GetLinearVelocity(m_bodyId)));
 	}
 }

@@ -128,14 +128,14 @@
     <ClCompile Include="Renderer\Tilemap.cpp">
       <Filter>Source\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\TextureAnimation.cpp">
       <Filter>Source\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Components\Animator.cpp">
       <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

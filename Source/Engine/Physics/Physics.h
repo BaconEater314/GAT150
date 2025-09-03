@@ -22,6 +22,8 @@ namespace bacon {
 
 		static float ms_pixelsPerUnit;
 
+		void ProcessCollisionEvents();
+
 	private:
 		friend class PhysicsBody;
 		b2WorldId m_worldId;

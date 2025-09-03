@@ -30,6 +30,7 @@ namespace bacon {
 	void RigidBody::Update(float dt) {
 		owner->transform.position = m_physicsBody->GetPosition();
 		owner->transform.rotation = math::radToDeg(m_physicsBody->GetAngle());
+		velocity = m_physicsBody->GetVelocity();
 	}
 
 	void RigidBody::ApplyForce(const vec2& force) {
