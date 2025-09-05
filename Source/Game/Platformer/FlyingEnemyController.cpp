@@ -20,8 +20,10 @@ void FlyingEnemyController::Update(float dt) {
 }
 
 void FlyingEnemyController::OnCollision(bacon::Actor* other) {
-	other->dead = true;
-	owner->dead = true;
+	if (compare(other->tag, "player")) {
+		other->dead = true;
+		owner->dead = true;
+	}
 }
 
 void FlyingEnemyController::Read(const bacon::json::value_t& value) {
