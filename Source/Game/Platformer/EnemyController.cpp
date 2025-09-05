@@ -26,7 +26,6 @@ void EnemyController::Update(float dt) {
 }
 
 void EnemyController::OnCollision(bacon::Actor* other) {
-
 }
 
 void EnemyController::Read(const bacon::json::value_t& value) {

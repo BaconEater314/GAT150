@@ -37,13 +37,17 @@ void PlatformerGame::Update(float dt) {
 		m_gameState = GameState::Game;
 		break;
 	case GameState::Game:
-
+		if (coinTimer <= 0) {
+			SpawnPickup();
+			coinTimer = 200;
+		}
+		else {
+			coinTimer -= dt;
+		}
 		break;
 	case GameState::PlayerDead:
-
 		break;
 	case GameState::GameOver:
-
 		break;
 	default:
 		break;
@@ -59,15 +63,20 @@ void PlatformerGame::Draw(class bacon::Renderer& renderer) {
 
 void PlatformerGame::SpawnPlayer() {
 	auto player = Instantiate("platformPlayer");
-	//player->transform.position = vec2{ random::getReal(0.0f,1080.0f),0.0f };
+	//player->transform.position = vec2{ random::getReal(0.0f,1080.0f),(0.0f,100.0f) };
 	m_scene->AddActor(std::move(player));
 }
 
 void PlatformerGame::SpawnEnemy() {
-	//auto enemy = Instantiate("platformEnemy");
 	auto enemy = Instantiate("bat");
 	//player->transform.position = vec2{ random::getReal(0.0f,1080.0f),0.0f };
 	m_scene->AddActor(std::move(enemy));
+}
+
+void PlatformerGame::SpawnPickup() {
+	auto coin = Instantiate("coin_pickup");
+	coin->transform.position = vec2{ random::getReal(0.0f,1080.0f),(0.0f,100.0f) };
+	m_scene->AddActor(std::move(coin));
 }
 
 void PlatformerGame::OnPlayerDeath() {

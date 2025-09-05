@@ -24,37 +24,15 @@
       "transform": {
         "position": [
           0,
-          500
+          200
         ],
         "rotation": 0,
-        "scale": 1
+        "scale": 1.5
       },
       "components": [
         {
           "type": "TilemapRenderer",
           "tilemap_name": "Tilemaps/map1.json"
-        }
-      ]
-    },
-    {
-      "tag": "crate",
-      "persistent": true,
-      "transform": {
-        "position": [
-          640,
-          100
-        ],
-        "rotation": 0,
-        "scale": 1
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer",
-          "texture_name": "textures/crate01.png"
-        },
-        {
-          "type": "RigidBody",
-          "resitution": 1
         }
       ]
     }

@@ -52,6 +52,12 @@
     <ClCompile Include="Platformer\EnemyController.cpp">
       <Filter>Source\Platformer</Filter>
     </ClCompile>
+    <ClCompile Include="Platformer\Pickup.cpp">
+      <Filter>Source\Platformer</Filter>
+    </ClCompile>
+    <ClCompile Include="Platformer\FlyingEnemyController.cpp">
+      <Filter>Source\Platformer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Player.h">
@@ -79,6 +85,12 @@
     <ClInclude Include="Platformer\EnemyController.h">
       <Filter>Source\Platformer</Filter>
     </ClInclude>
+    <ClInclude Include="Platformer\Pickup.h">
+      <Filter>Source\Platformer</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\FlyingEnemyController.h">
+      <Filter>Source\Platformer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Build\Assets\scene.json">
@@ -97,6 +109,9 @@
       <Filter>Assets\Platformer</Filter>
     </None>
     <None Include="..\..\Build\Assets\Platformer\Animations\bat_idle.json">
+      <Filter>Assets\Platformer</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Platformer\Animations\coin.json">
       <Filter>Assets\Platformer</Filter>
     </None>
   </ItemGroup>

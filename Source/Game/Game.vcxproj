@@ -201,6 +201,8 @@
     <ClCompile Include="Game\SpaceGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Platformer\EnemyController.cpp" />
+    <ClCompile Include="Platformer\FlyingEnemyController.cpp" />
+    <ClCompile Include="Platformer\Pickup.cpp" />
     <ClCompile Include="Platformer\PlatformerGame.cpp" />
     <ClCompile Include="Platformer\PlayerController.cpp" />
   </ItemGroup>
@@ -212,12 +214,15 @@
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\SpaceGame.h" />
     <ClInclude Include="Platformer\EnemyController.h" />
+    <ClInclude Include="Platformer\FlyingEnemyController.h" />
+    <ClInclude Include="Platformer\Pickup.h" />
     <ClInclude Include="Platformer\PlatformerGame.h" />
     <ClInclude Include="Platformer\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Build\Assets\json.json" />
     <None Include="..\..\Build\Assets\Platformer\Animations\bat_idle.json" />
+    <None Include="..\..\Build\Assets\Platformer\Animations\coin.json" />
     <None Include="..\..\Build\Assets\Platformer\Scenes\level.json" />
     <None Include="..\..\Build\Assets\Platformer\Scenes\prototype.json" />
     <None Include="..\..\Build\Assets\Platformer\Tilemaps\map1.json" />

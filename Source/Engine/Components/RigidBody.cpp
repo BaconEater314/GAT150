@@ -41,6 +41,15 @@ namespace bacon {
 		m_physicsBody->ApplyTorque(radians);
 	}
 
+	vec2 RigidBody::GetVelocty()
+	{
+		return m_physicsBody->GetVelocity();
+	}
+
+	void RigidBody::SetVelocity(const vec2& velocity) {
+		m_physicsBody->SetVelocity(velocity);
+	}
+
 	void RigidBody::Read(const json::value_t& value) {
 		Object::Read(value);
 

@@ -23,6 +23,9 @@ namespace bacon {
 		void ApplyForce(const vec2& force);
 		void ApplyTorque(float radians);
 
+		vec2 GetVelocty();
+		void SetVelocity(const vec2& velocity);
+
 	private:
 		std::unique_ptr<PhysicsBody> m_physicsBody;
 	};

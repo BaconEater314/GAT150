@@ -75,8 +75,8 @@ namespace bacon {
 		b2Body_ApplyTorque(m_bodyId, radians, true);
 	}
 
-	void PhysicsBody::SetVelocity(){
-
+	void PhysicsBody::SetVelocity(const vec2& velocity) {
+		b2Body_SetLinearVelocity(m_bodyId, to_b2(Physics::PixelToWorld(velocity)));
 	}
 
 	vec2 PhysicsBody::GetVelocity(){

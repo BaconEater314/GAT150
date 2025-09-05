@@ -28,12 +28,14 @@ public:
 
 	void SpawnPlayer();
 	void SpawnEnemy();
+	void SpawnPickup();
 
 	bool playGameOver = true;
 
 	void OnPlayerDeath();
 	void OnNotify(const bacon::Event& event) override;
 
+	int coinTimer = 100;
 private:
 	GameState m_gameState = GameState::Initialize;
 	float m_enemySpawnTimer{ 0 };
@@ -47,5 +49,4 @@ private:
 	std::unique_ptr<class bacon::Text> m_livesText;
 	std::unique_ptr<class bacon::Text> m_healthText;
 
-	bool dreadAlive = false;
 };

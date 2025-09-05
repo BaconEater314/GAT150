@@ -39,7 +39,7 @@ namespace bacon {
 		void ApplyForce(const vec2& force);
 		void ApplyTorque(float radians);
 
-		void SetVelocity();
+		void SetVelocity(const vec2& velocity);
 		vec2 GetVelocity();
 
 	private:
